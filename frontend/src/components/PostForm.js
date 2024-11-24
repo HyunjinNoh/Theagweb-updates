@@ -25,7 +25,22 @@ function PostForm() {
         filebrowserUploadUrl: "http://localhost:7000/api/posts/upload",
         filebrowserUploadMethod: "form",
         extraPlugins: "uploadimage", // 이미지 업로드 플러그인 활성화
+        filebrowserUploadMethod: "xhr", // iframe 대신 XHR을 사용
       });
+
+      // CKEditor 업로드 후 URL 표시를 위한 이벤트 추가
+      window.CKEDITOR.instances.editor.on("fileUploadResponse", function (evt) {
+        const xhr = evt.data.fileLoader.xhr;
+        const response = JSON.parse(xhr.responseText);
+
+        if (response.uploaded) {
+          console.log("Uploaded URL:", response.url); // URL 확인용 로그
+          evt.data.fileLoader.fileName = response.url; // 업로드된 URL을 CKEditor에 자동 삽입
+        } else {
+          console.error("Upload failed:", response.error); // 실패 로그
+        }
+      });
+
       editorRef.current = window.CKEDITOR.instances.editor;
     }
 

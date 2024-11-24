@@ -12,7 +12,13 @@ const app = express();
 const PORT = process.env.PORT || 7000; // 기본 포트 추가
 
 // CORS 설정
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // 프론트엔드 URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 // Middleware
 app.use(express.json()); // JSON 요청 파싱
