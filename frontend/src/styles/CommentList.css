@@ -1,0 +1,28 @@
+.comments-section {
+  margin-top: 20px;
+}
+
+.add-comment {
+  margin-bottom: 20px;
+}
+
+.add-comment input,
+.add-comment textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+textarea {
+  height: 80px;
+}
+
+.comment {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.comment-timestamp {
+  font-size: 0.85rem;
+  color: #555;
+}

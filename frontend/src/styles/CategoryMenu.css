@@ -1,0 +1,23 @@
+.category-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: navy;
+    padding: 10px;
+  }
+  
+  .category-button {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+  }
+  
+  .category-button:hover {
+    background-color: white;
+    color: navy;
+  }
+  
