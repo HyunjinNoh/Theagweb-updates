@@ -2,14 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    background-color: navy;
+    background-color: #fffedd;
     padding: 10px;
   }
   
   .category-button {
-    color: white;
+    color: rgb(25, 14, 88);
     background-color: transparent;
-    border: 1px solid white;
     padding: 10px 20px;
     margin: 5px;
     cursor: pointer;
@@ -18,6 +17,6 @@
   
   .category-button:hover {
     background-color: white;
-    color: navy;
+    color: black;
   }
   

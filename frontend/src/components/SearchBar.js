@@ -91,7 +91,7 @@ function SearchBar({ onLogin, onLogout, isLoggedIn, userRole }) {
 
       {/* 회원가입 모달 */}
       <Modal isOpen={isRegisterModalOpen} onRequestClose={() => setRegisterModalOpen(false)}>
-        <h2>Register</h2>
+        <h2>Register (Recommended to Reporters) </h2>
         <input
           type="text"
           placeholder="Name"
@@ -115,7 +115,7 @@ function SearchBar({ onLogin, onLogout, isLoggedIn, userRole }) {
 
       {/* 로그인 모달 */}
       <Modal isOpen={isLoginModalOpen} onRequestClose={() => setLoginModalOpen(false)}>
-        <h2>Login</h2>
+        <h2>Login (Registered to Reporters) </h2>
         <input
           type="email"
           placeholder="Email"

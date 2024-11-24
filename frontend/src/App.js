@@ -10,8 +10,8 @@ import "./App.css";
 
 function App() {
   const categories = [
-    "Notice Board",
     "The Youth Globe",
+    "Notice Board",
     "On Campus",
     "Feature",
     "Issue",
