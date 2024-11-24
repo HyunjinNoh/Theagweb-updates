@@ -19,23 +19,26 @@ function PostList({ category }) {
       try {
         let endpoint = "http://localhost:7000/api/posts";
 
+        // 검색 조건
         if (keyword && filterBy) {
-          endpoint += filterBy === "title" 
-            ? `/search/title?keyword=${encodeURIComponent(keyword)}` 
-            : `/search/author?keyword=${encodeURIComponent(keyword)}`;
-        } else if (category) {
-          endpoint += `?category=${encodeURIComponent(category)}`;
+          if (filterBy === "title") {
+            endpoint = `http://localhost:7000/api/posts/search/title?keyword=${encodeURIComponent(keyword)}`;
+          } else if (filterBy === "author") {
+            endpoint = `http://localhost:7000/api/posts/search/author?keyword=${encodeURIComponent(keyword)}`;
+          }
+        }
+
+        // 카테고리 필터 추가
+        if (category) {
+          endpoint += keyword && filterBy ? `&category=${encodeURIComponent(category)}` : `?category=${encodeURIComponent(category)}`;
         }
 
         const response = await fetch(endpoint);
         if (!response.ok) {
-          if (response.status === 400) {
-            throw new Error("Invalid search value.");
-          } else if (response.status === 404) {
-            throw new Error(`No results found for "${keyword}".`);
-          } else {
-            throw new Error(`Error: ${response.status}`);
+          if (response.status === 404) {
+            throw new Error(`No results found for "${keyword || category}".`);
           }
+          throw new Error(`Error: ${response.status}`);
         }
 
         const data = await response.json();
@@ -49,6 +52,7 @@ function PostList({ category }) {
         setLoading(false);
       }
     };
+
 
     fetchPosts();
   }, [category, keyword, filterBy]);

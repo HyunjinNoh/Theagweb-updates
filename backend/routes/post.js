@@ -93,12 +93,14 @@ router.post('/upload', upload.single('upload'), async (req, res) => {
 
 // 게시글 목록 조회 라우트
 router.get("/", async (req, res) => {
-  
-
   try {
     const { category } = req.query;
     const query = category ? { category } : {};
-    const posts = await Post.find(query).sort({ createdAt: -1 }); // 최신순 정렬
+
+    const posts = await Post.find(query)
+      .populate("author", "name email") // 작성자 정보 가져오기
+      .sort({ createdAt: -1 }); // 최신순 정렬
+
     res.status(200).json(posts);
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -106,37 +108,62 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/search", async (req, res) => {
-  const { keyword, filterBy } = req.query;
+// 제목으로 검색
+router.get("/search/title", async (req, res) => {
+  const { keyword, category } = req.query;
 
   try {
-    let query = {};
+    const query = {
+      title: { $regex: keyword, $options: "i" },
+      ...(category && { category }), // 카테고리가 있으면 추가
+    };
 
-    // 검색 조건 검증
-    if (keyword) {
-      if (filterBy === "title") {
-        query.title = { $regex: keyword, $options: "i" }; // 제목 기준 필터
-      } else if (filterBy === "author") {
-        query = { "author.name": { $regex: keyword, $options: "i" } }; // 작성자 기준 필터
-      } else {
-        // filterBy 값이 title 또는 author가 아니면 400 오류 반환
-        return res.status(400).json({ message: "Invalid value." });
-      }
-    }
+    const posts = await Post.find(query)
+      .populate("author", "name email")
+      .sort({ createdAt: -1 });
 
-    const posts = await Post.find(query).populate("author", "name").sort({ createdAt: -1 });
-
-    if (posts.length === 0) {
-      // 검색 결과가 없으면 404 반환
-      return res.status(404).json({ message: "No posts found matching your criteria." });
+    if (!posts.length) {
+      return res.status(404).json({ message: `No posts found for title: ${keyword}.` });
     }
 
     res.status(200).json(posts);
   } catch (error) {
-    console.error("Error searching posts:", error);
-    res.status(500).json({ message: "Error searching posts." });
+    console.error("Error searching posts by title:", error);
+    res.status(500).json({ message: "Error searching posts by title." });
   }
 });
+
+// 작성자로 검색
+router.get("/search/author", async (req, res) => {
+  const { keyword, category } = req.query;
+
+  try {
+    // 작성자를 검색하고 해당 ID를 가져옴
+    const authors = await User.find({ name: { $regex: keyword, $options: "i" } }).select("_id");
+    if (!authors.length) {
+      return res.status(404).json({ message: `No authors found for name: ${keyword}.` });
+    }
+
+    const query = {
+      author: { $in: authors.map((author) => author._id) },
+      ...(category && { category }), // 카테고리가 있으면 추가
+    };
+
+    const posts = await Post.find(query)
+      .populate("author", "name email")
+      .sort({ createdAt: -1 });
+
+    if (!posts.length) {
+      return res.status(404).json({ message: `No posts found for author: ${keyword}.` });
+    }
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error searching posts by author:", error);
+    res.status(500).json({ message: "Error searching posts by author." });
+  }
+});
+
 
 // 특정 게시글 조회 라우트
 router.get("/:id", async (req, res) => {

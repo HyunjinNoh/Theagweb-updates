@@ -42,6 +42,12 @@ function App() {
 
   const handleSearch = (searchData) => {
     setSearchData(searchData); // 검색 조건 저장
+    setSelectedCategory(""); // 검색 조건이 설정되면 카테고리 초기화
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category); // 선택된 카테고리 설정
+    setSearchData(null); // 카테고리 선택 시 검색 조건 초기화
   };
 
   return (
@@ -71,12 +77,13 @@ function App() {
               <>
                 <CategoryMenu
                   categories={categories}
-                  onCategorySelect={(category) => {
-                    setSearchData(null); // 검색 초기화
-                    setSelectedCategory(category); // 카테고리 업데이트
-                  }}
+                  onCategorySelect={handleCategorySelect}
                 />
-                <PostList category={selectedCategory} />
+                <PostList
+                  category={selectedCategory}
+                  keyword={searchData?.keyword}
+                  filterBy={searchData?.filterBy}
+                />
               </>
             }
           />
@@ -84,7 +91,9 @@ function App() {
             path="/posts/search/title"
             element={
               <PostList
-                searchParams={searchData?.filterBy === "title" ? searchData : null}
+                keyword={searchData?.keyword}
+                filterBy="title"
+                category={selectedCategory}
               />
             }
           />
@@ -92,7 +101,9 @@ function App() {
             path="/posts/search/author"
             element={
               <PostList
-                searchParams={searchData?.filterBy === "author" ? searchData : null}
+                keyword={searchData?.keyword}
+                filterBy="author"
+                category={selectedCategory}
               />
             }
           />
