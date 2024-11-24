@@ -5,13 +5,11 @@ import "./../styles/SearchBar.css";
 
 Modal.setAppElement("#root");
 
-function SearchBar({ onLogin, onLogout, isLoggedIn, userRole, onSearch }) {
+function SearchBar({ onLogin, onLogout, isLoggedIn, userRole }) {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterBy, setFilterBy] = useState("title"); // 기본 필터: 제목
 
   const resetForm = () => setForm({ name: "", email: "", password: "" });
 
@@ -58,51 +56,9 @@ function SearchBar({ onLogin, onLogout, isLoggedIn, userRole, onSearch }) {
       console.error("Login error:", error);
     }
   };
-  
-  const handleSearch = () => {
-    if (!searchTerm.trim()) {
-      alert("Please enter a search term.");
-      return;
-    }
-  
-    let apiPath = "";
-    if (filterBy === "title") {
-      apiPath = `/posts/search/title`;
-    } else if (filterBy === "author") {
-      apiPath = `/posts/search/author`;
-    }
-  
-    const query = `?keyword=${encodeURIComponent(searchTerm)}`;
-    navigate(`${apiPath}${query}`); // URL 업데이트
-  };
-
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
-  };
 
   return (
     <div className="search-bar">
-      <select
-        className="filter-select"
-        value={filterBy}
-        onChange={(e) => setFilterBy(e.target.value)}
-      >
-        <option value="title">Search by Title</option>
-        <option value="author">Search by Author</option>
-      </select>
-      <input
-        type="text"
-        placeholder="Write the search term and press the 'Enter' key"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyDown={handleKeyPress}
-        className="search-input"
-      />
-      <button className="search-button" onClick={handleSearch}>
-        🔍
-      </button>
       <div className="auth-buttons">
         {!isLoggedIn ? (
           <>

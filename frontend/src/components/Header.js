@@ -8,6 +8,7 @@ function Header() {
       onClick={() => (window.location.href = "/")} // 루트로 이동
     >
       <h1>The Ajou Globe</h1>
+      <h1>This is the test page, more articles will be uploaded soon.</h1>
     </header>
   );
 }
