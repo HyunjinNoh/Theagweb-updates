@@ -15,7 +15,7 @@ function SearchBar({ onLogin, onLogout, isLoggedIn, userRole }) {
 
   const handleRegisterSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:7000/api/auth/register", {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -36,7 +36,7 @@ function SearchBar({ onLogin, onLogout, isLoggedIn, userRole }) {
 
   const handleLoginSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:7000/api/auth/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: form.email, password: form.password }),
@@ -115,7 +115,7 @@ function SearchBar({ onLogin, onLogout, isLoggedIn, userRole }) {
 
       {/* 로그인 모달 */}
       <Modal isOpen={isLoginModalOpen} onRequestClose={() => setLoginModalOpen(false)}>
-        <h2>Login (Registered to Reporters) </h2>
+        <h2>Login (Recommended to Reporters) </h2>
         <input
           type="email"
           placeholder="Email"

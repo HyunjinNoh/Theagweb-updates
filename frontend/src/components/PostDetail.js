@@ -14,7 +14,7 @@ function PostDetail() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:7000/api/posts/${id}`);
+        const response = await fetch(`/api/posts/${id}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
@@ -30,7 +30,7 @@ function PostDetail() {
     // 조회수 증가 API 호출 (별도 처리)
     const incrementViews = async () => {
       try {
-        const response = await fetch(`http://localhost:7000/api/posts/${id}/views`, { method: "PATCH" });
+        const response = await fetch(`/api/posts/${id}/views`, { method: "PATCH" });
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
@@ -58,7 +58,7 @@ function PostDetail() {
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this post?")) {
       try {
-        const response = await fetch(`http://localhost:7000/api/posts/${id}`, {
+        const response = await fetch(`/api/posts/${id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

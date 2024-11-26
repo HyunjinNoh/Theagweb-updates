@@ -22,7 +22,7 @@ function PostForm() {
     if (document.getElementById("editor")) {
       window.CKEDITOR.replace("editor", {
         height: 300,
-        filebrowserUploadUrl: "http://localhost:7000/api/posts/upload",
+        filebrowserUploadUrl: "/api/posts/upload",
         filebrowserUploadMethod: "form",
         extraPlugins: "uploadimage", // 이미지 업로드 플러그인 활성화
         filebrowserUploadMethod: "xhr", // iframe 대신 XHR을 사용
@@ -48,7 +48,7 @@ function PostForm() {
     if (id) {
       const fetchPost = async () => {
         try {
-          const response = await fetch(`http://localhost:7000/api/posts/${id}`);
+          const response = await fetch(`/api/posts/${id}`);
           if (!response.ok) {
             throw new Error("Failed to fetch post data");
           }
@@ -82,8 +82,8 @@ function PostForm() {
 
     try {
       const url = id
-        ? `http://localhost:7000/api/posts/${id}` // 수정 요청
-        : "http://localhost:7000/api/posts"; // 새 글 작성 요청
+        ? `/api/posts/${id}` // 수정 요청
+        : "/api/posts"; // 새 글 작성 요청
       const method = id ? "PUT" : "POST";
 
       const response = await fetch(url, {

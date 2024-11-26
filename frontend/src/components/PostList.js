@@ -17,14 +17,14 @@ function PostList({ category }) {
       setLoading(true);
 
       try {
-        let endpoint = "http://localhost:7000/api/posts";
+        let endpoint = "/api/posts";
 
         // 검색 조건
         if (keyword && filterBy) {
           if (filterBy === "title") {
-            endpoint = `http://localhost:7000/api/posts/search/title?keyword=${encodeURIComponent(keyword)}`;
+            endpoint = `/api/posts/search/title?keyword=${encodeURIComponent(keyword)}`;
           } else if (filterBy === "author") {
-            endpoint = `http://localhost:7000/api/posts/search/author?keyword=${encodeURIComponent(keyword)}`;
+            endpoint = `/api/posts/search/author?keyword=${encodeURIComponent(keyword)}`;
           }
         }
 
