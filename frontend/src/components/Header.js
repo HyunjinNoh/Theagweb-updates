@@ -1,4 +1,5 @@
 import React from "react";
+import headerImage from '../assets/header-image.png'
 import "./../styles/Header.css";
 
 function Header() {
@@ -7,8 +8,7 @@ function Header() {
       className="header"
       onClick={() => (window.location.href = "/")} // 루트로 이동
     >
-      <h1>Articles Page</h1>
-      <h1>This is the test page, more articles will be uploaded soon.</h1>
+      <img src={headerImage} className="header-img" />
     </header>
   );
 }

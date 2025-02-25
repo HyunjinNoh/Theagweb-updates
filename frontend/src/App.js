@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import CategoryMenu from "./components/CategoryMenu";
@@ -53,6 +54,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
+        <Navbar />
         <Header />
         <SearchBar
           onSearch={handleSearch}
