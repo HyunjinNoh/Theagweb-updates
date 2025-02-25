@@ -1,0 +1,50 @@
+h2 {
+    color: black;
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+.register-container {
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    align-items: center; /* 가운데 정렬 (선택 사항) */
+    padding: 20px;
+  }
+  
+  .register-container input {
+    margin: 10px 0; 
+    padding: 10px;
+    width: 100%; 
+    max-width: 400px; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .register-container input::placeholder {
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 11px;
+  }
+  
+  .register-container button {
+    color: black;
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 10px;
+    background-color: #F0F0F0;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+  }
+    
+  .register-container button:hover {
+    color: #F0F0F0;
+    background-color: grey;
+  }
+

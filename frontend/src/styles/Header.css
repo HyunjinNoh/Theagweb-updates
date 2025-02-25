@@ -1,12 +1,16 @@
 .header {
+  background-position: center;
+  background: url('../assets/header-image.png');
+  background-size: contain;
+  background-repeat: no-repeat;
   cursor: pointer;
-  max-height: 400px; 
+  margin: 0 20% 0 20%;
+  min-height: 400px;
 }
 
-.header-img {
-  width: 75%; /*부모 요소인 .header의 너비에 맞춰 크기 자동으로 조정됨*/
-  height: auto; 
-  margin: 0 auto; /*중앙정렬*/
-  object-fit: contain; 
-  display: block; 
+@media (max-width: 768px) {
+  .header {
+    min-height: 100px; 
+    margin: 0 10%; 
+  }
 }

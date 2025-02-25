@@ -1,8 +1,10 @@
 import React from "react";
-//import faviconImage from '../assets/favicon-image.png'
+import { useNavigate } from "react-router-dom";
 import "./../styles/Navbar.css";
 
 function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <nav className="navbar">
         <ul className="navbar-links">
@@ -11,6 +13,7 @@ function Navbar() {
             <li><a href="https://ajouglobe1989.wixsite.com/press/blog">Previous Articles (~No.166)</a></li>
             <li><a href="https://www.instagram.com/theajouglobe">Instagram</a></li>
         </ul>
+        <button className="reporters-btn" onClick={() => navigate("/reporters")}>Only Reporters</button>
     </nav>
   );
 }

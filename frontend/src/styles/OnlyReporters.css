@@ -1,0 +1,78 @@
+.reporters-container {
+    text-align: center;
+    margin-top: 50px;
+}
+  
+.register-btn {
+  color: black;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 10px;
+  background-color: #F0F0F0;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+  
+.register-btn:hover {
+  color: #F0F0F0;
+  background-color: grey;
+}
+
+.login-btn {
+  color: black;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 10px;
+  background-color: #F0F0F0;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+  
+.login-btn:hover {
+  color: #F0F0F0;
+  background-color: grey;
+}
+
+.requestRole-btn {
+  color: white;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #001950;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 10px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+  
+.requestRole-btn:hover {
+  background-color: #F0F0F0;
+}
+
+.posting-btn {
+  color: white;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #001950;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 10px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+  
+.posting-btn:hover {
+  background-color: #F0F0F0;
+}

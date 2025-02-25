@@ -7,6 +7,20 @@
     margin: 10px;
 }
 
+.reporters-btn {
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 8px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+  
+.reporters-btn:hover {
+    background-color: grey;
+}
+  
 .navbar-links {
     list-style: none; 
     display: flex; 

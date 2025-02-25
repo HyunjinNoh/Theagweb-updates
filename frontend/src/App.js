@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
+import OnlyReporters from "./components/OnlyReporters";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
+
 import CategoryMenu from "./components/CategoryMenu";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostDetail from "./components/PostDetail";
+
+import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
@@ -27,10 +33,22 @@ function App() {
 
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
   const [userRole, setUserRole] = useState(""); // 사용자 역할 상태
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태
   const [searchData, setSearchData] = useState(null); // 검색 조건
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
-  // 로그인 상태 복원 로직
+  const onLogin = (role) => {
+    setIsLoggedIn(true);
+    setUserRole(role);
+  };
+
+  const onLogout = () => {
+    setIsLoggedIn(false);
+    setUserRole(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+  };
+
+  // 로그인 상태 복원
   useEffect(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
@@ -54,27 +72,10 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <Navbar />
-        <Header />
-        <SearchBar
-          onSearch={handleSearch}
-          isLoggedIn={isLoggedIn}
-          userRole={userRole}
-          onLogin={(role) => {
-            setUserRole(role);
-            setIsLoggedIn(true);
-            localStorage.setItem("role", role); // Role 저장
-          }}
-          onLogout={() => {
-            setUserRole("");
-            setIsLoggedIn(false);
-            localStorage.removeItem("token"); // Token 제거
-            localStorage.removeItem("role"); // Role 제거
-          }}
-        />
+        <Navbar/>
+        <Header/>
         <Routes>
-          <Route
-            path="/"
+          <Route path="/"
             element={
               <>
                 <CategoryMenu
@@ -89,30 +90,13 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/posts/search/title"
-            element={
-              <PostList
-                keyword={searchData?.keyword}
-                filterBy="title"
-                category={selectedCategory}
-              />
-            }
-          />
-          <Route
-            path="/posts/search/author"
-            element={
-              <PostList
-                keyword={searchData?.keyword}
-                filterBy="author"
-                category={selectedCategory}
-              />
-            }
-          />
+          <Route path="/reporters" element={<OnlyReporters isLoggedIn={isLoggedIn} userRole={userRole} onLogout={onLogout} />}/>
+          <Route path="/login" element={<Login onLogin={onLogin} />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/post" element={<PostForm userRole={userRole} />} />
           <Route path="/posts/:id" element={<PostDetail />} />
-          <Route path="/post/edit/:id" element={<PostForm />} />
         </Routes>
+        <Footer/>
       </div>
     </Router>
   );

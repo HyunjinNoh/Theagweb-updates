@@ -1,22 +1,74 @@
 .category-menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background-color: #fffedd;
-    padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: url('../assets/earth-image.jpg');
+  background-position: 40% 50%;
+  background-size: cover;
+  padding: 10px;
+  margin-top: 20px;
+  height: auto;
+  min-height: 100px;
+}
+
+.category-button {
+  position: relative;
+  color: white;
+  background-color: transparent;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: "Quicksand", serif;
+  font-weight: 300;
+  font-style: normal;
+  border: none;
+}
+
+/* 점 (dot) */
+.dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px; /* 점 크기 */
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid white;
+  box-shadow: 0 0 5px white;
+  opacity: 0; /* 기본적으로 안 보이게 */
+  transform: translate(-50%, -50%);
+}
+
+/* hover 시 dot 보이게 + 애니메이션 적용 */
+.category-button:hover .dot {
+  opacity: 1;
+  animation: orbit 2s infinite linear, fadeOut 3s forwards;
+}
+
+/* 타원 궤도를 따라 회전하는 애니메이션 */
+@keyframes orbit {
+  0% { transform: translate(-50%, -50%) translateX(15px) rotate(0deg); }
+  25% { transform: translate(-50%, -50%) translateX(15px) rotate(90deg) translateY(5px); }
+  50% { transform: translate(-50%, -50%) translateX(15px) rotate(180deg) translateY(0px); }
+  75% { transform: translate(-50%, -50%) translateX(15px) rotate(270deg) translateY(-5px); }
+  100% { transform: translate(-50%, -50%) translateX(15px) rotate(360deg) translateY(0px); }
+}
+
+/* 점이 점점 사라지는 효과 */
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }  /* 80%까지 유지 */
+  100% { opacity: 0; }  /* 마지막에 사라짐 */
+}
+
+/* 반응형 설정 */
+@media (max-width: 768px) {
+  .category-menu {
+      flex-wrap: wrap;
   }
-  
+
   .category-button {
-    color: rgb(25, 14, 88);
-    background-color: transparent;
-    padding: 10px 20px;
-    margin: 5px;
-    cursor: pointer;
-    font-family: 'Times New Roman', Times, serif;
-    border: none; /* 테두리 제거 */
+      font-size: 14px;
+      padding: 8px 16px;
   }
-  
-  .category-button:hover {
-    background-color: white;
-  }
-  
+}

@@ -11,6 +11,7 @@ function CategoryMenu({ categories, onCategorySelect }) {
           onClick={() => onCategorySelect(category)}
         >
           {category}
+          <div className="dot"></div>
         </button>
       ))}
     </div>
