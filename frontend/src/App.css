@@ -5,3 +5,26 @@
     box-sizing: border-box;
   }
   
+.contents-wrapper {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 100px;
+} 
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* 전체 너비를 차지 */
+  height: 100px;
+}
+
+.footer-image {
+  width: 100%; /* 부모 요소(header) 너비에 맞게 조절 */
+  max-width: none;
+  height: auto; /* 비율 유지 */
+  max-height: 100px; /* 최대 높이 제한 */
+  position : relative;
+  transform : translateY(-100%);
+  object-fit: cover; /* 이미지가 잘리지 않도록 조정 */
+}

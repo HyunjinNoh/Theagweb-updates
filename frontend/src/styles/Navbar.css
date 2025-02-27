@@ -12,9 +12,10 @@
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
-    font-size: 8px;
+    font-size: 14px;
     cursor: pointer;
     margin-left: 15px;
+    margin-top: 4px;
 }
   
 .reporters-btn:hover {
@@ -25,7 +26,7 @@
     list-style: none; 
     display: flex; 
     padding: 0;
-    margin: 0;
+    margin: 10px 0 0 0; /* 상단에서 조금 간격 있게 */
 }
 
 .navbar-links li {
@@ -35,7 +36,7 @@
 .navbar-links a {
     color: grey; 
     text-decoration: none; 
-    font-size: 8px;
+    font-size: 14px;
 }
 
 .navbar-links .articles-link {

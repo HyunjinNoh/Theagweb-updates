@@ -1,16 +1,32 @@
 .header {
-  background-position: center;
-  background: url('../assets/header-image.png');
-  background-size: contain;
-  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  margin: 0 20% 0 20%;
-  min-height: 400px;
+  width: 100%; /* 전체 너비를 차지 */
+}
+
+.header-image {
+  max-width: 100%; /* 부모 요소(header) 너비에 맞게 조절 */
+  height: auto; /* 비율 유지 */
+  max-height: 400px; /* 최대 높이 제한 */
+  object-fit: contain; /* 이미지가 잘리지 않도록 조정 */
+}
+
+@media (max-width: 1024px) {
+  .header-image {
+    max-height: 300px; /* 태블릿 */
+  }
 }
 
 @media (max-width: 768px) {
-  .header {
-    min-height: 100px; 
-    margin: 0 10%; 
+  .header-image {
+    max-height: 250px; /* 모바일 */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-image {
+    max-height: 200px; /* 모바일*/
   }
 }

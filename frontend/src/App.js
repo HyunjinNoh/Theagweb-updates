@@ -11,14 +11,12 @@ import CategoryMenu from "./components/CategoryMenu";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostDetail from "./components/PostDetail";
-
-import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
   const categories = [
-    "The Youth Globe",
-    "Notice Board",
+    //"The Youth Globe",
+    //"Notice Board",
     "On Campus",
     "Feature",
     "Issue",
@@ -74,29 +72,33 @@ function App() {
       <div className="app-container">
         <Navbar/>
         <Header/>
-        <Routes>
-          <Route path="/"
-            element={
-              <>
-                <CategoryMenu
-                  categories={categories}
-                  onCategorySelect={handleCategorySelect}
-                />
-                <PostList
-                  category={selectedCategory}
-                  keyword={searchData?.keyword}
-                  filterBy={searchData?.filterBy}
-                />
-              </>
-            }
-          />
-          <Route path="/reporters" element={<OnlyReporters isLoggedIn={isLoggedIn} userRole={userRole} onLogout={onLogout} />}/>
-          <Route path="/login" element={<Login onLogin={onLogin} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/post" element={<PostForm userRole={userRole} />} />
-          <Route path="/posts/:id" element={<PostDetail />} />
-        </Routes>
-        <Footer/>
+        <div className="contents-wrapper">
+          <Routes>
+            <Route path="/"
+              element={
+                <>
+                  <CategoryMenu
+                    categories={categories}
+                    onCategorySelect={handleCategorySelect}
+                  />
+                  <PostList
+                    category={selectedCategory}
+                    keyword={searchData?.keyword}
+                    filterBy={searchData?.filterBy}
+                  />
+                </>
+              }
+            />
+            <Route path="/reporters" element={<OnlyReporters isLoggedIn={isLoggedIn} userRole={userRole} onLogout={onLogout} />}/>
+            <Route path="/login" element={<Login onLogin={onLogin} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/post" element={<PostForm userRole={userRole} />} />
+            <Route path="/posts/:id" element={<PostDetail />} />
+          </Routes>
+        </div>
+        <footer className="footer">
+          <img src={require("./assets/footer-image.png")} className="footer-image"/>
+        </footer>
       </div>
     </Router>
   );
