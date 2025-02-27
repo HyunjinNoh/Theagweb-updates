@@ -91,7 +91,7 @@ function PostDetail() {
     <div className="post-detail">
       <h1>{post.title}</h1>
       <p>
-        <strong>Author:</strong> {post.author?.name || "Unknown"} <br />
+        <strong>Reporter:</strong> {post.author?.name || "Unknown"} <br />
         <strong>Posted on:</strong> {new Date(post.createdAt).toLocaleString("ko-KR")}
       </p>
       <div dangerouslySetInnerHTML={{ __html: post.content }} />

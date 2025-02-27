@@ -9,6 +9,7 @@
   height: auto;
   min-height: 100%;
   padding-bottom: 100px;
+  margin-bottom: 100px;
 } 
 
 .footer {
@@ -17,6 +18,10 @@
   align-items: center;
   width: 100%; /* 전체 너비를 차지 */
   height: 100px;
+  margin: 0;
+  padding: 0;
+  position : relative;
+  transform : translateY(-100%);
 }
 
 .footer-image {
@@ -24,7 +29,5 @@
   max-width: none;
   height: auto; /* 비율 유지 */
   max-height: 100px; /* 최대 높이 제한 */
-  position : relative;
-  transform : translateY(-100%);
   object-fit: cover; /* 이미지가 잘리지 않도록 조정 */
 }
