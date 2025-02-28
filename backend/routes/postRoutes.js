@@ -51,9 +51,11 @@ router.post("/", verifyReporter, postController.createPost);
 
 /**
  * @swagger
- * /{postId}/postImage:
+ * /posts/{postId}/postImage:
  *   post:
- *     summary: Upload post image
+ *     tags:
+ *       - 게시글
+ *     summary: 특정 게시글 첨부파일 업로드
  *     description: Allows the user to upload an image for a specific post.
  *     parameters:
  *       - in: path
@@ -84,9 +86,11 @@ router.post('/:postId/postImages', postController.uploadPostImage);
 
 /**
  * @swagger
- * /{postId}/thumbnail:
+ * /posts/{postId}/thumbnail:
  *   post:
- *     summary: Upload post thumbnail
+ *     tags:
+ *       - 게시글
+ *     summary: 특정 게시글 썸네일 업로드
  *     description: Allows the user to upload a thumbnail for a specific post.
  *     parameters:
  *       - in: path

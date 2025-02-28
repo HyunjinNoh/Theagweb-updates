@@ -84,7 +84,7 @@ function App() {
             <Route path="/login" element={<Login onLogin={onLogin} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/post" element={<PostForm userRole={userRole} />} />
-            <Route path="/posts/:id" element={<PostDetail />} />
+            <Route path="/posts/:postId" element={<PostDetail />} />
           </Routes>
         </div>
         <footer className="footer">

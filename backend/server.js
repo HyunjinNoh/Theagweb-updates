@@ -57,7 +57,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/posts", commentRoutes);
+app.use("/api/posts/:postId/comments", commentRoutes);
 
 // Start Server
 app.listen(PORT, () => {

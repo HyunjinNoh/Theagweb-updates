@@ -44,7 +44,7 @@ const createPost = async (req, res) => {
 
   // 요청 데이터 검증
   if (!title || !content || !category) {
-    return res.status(400).json({ message: "제목, 내용, 카테고리는 필수로 입력해야 합니다다." });
+    return res.status(400).json({ message: "제목, 내용, 카테고리는 필수로 입력해야 합니다." });
   }
 
   try {
@@ -58,7 +58,7 @@ const createPost = async (req, res) => {
 //특정 게시글 조회 페이지
 const getPostById = async (req, res) => {
   try {
-    const post = await postService.getPostById(req.params.id);
+    const post = await postService.getPostById(req.params.postId);
     if (!post) return res.status(404).json({ message: "해당 게시글을 찾을 수 없습니다." });
 
     //조회 시 조회수 증가

@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PostForm() {
-  const { id } = useParams(); // 게시글 ID (수정 모드에서 사용)
+  const { id } = useParams(); // 게시글 ID 
   const navigate = useNavigate();
-  const [form, setForm] = useState({ title: "", category: "Notice Board", content: "" });
+  const [form, setForm] = useState({ title: "", category: "", content: "" });
   const editorRef = useRef(null); // CKEditor 인스턴스 참조
   const [userRole, setUserRole] = useState("");
 
@@ -22,7 +22,7 @@ function PostForm() {
     if (document.getElementById("editor")) {
       window.CKEDITOR.replace("editor", {
         height: 300,
-        filebrowserUploadUrl: "http://localhost:7000/api/upload-files",
+        filebrowserUploadUrl: `http://localhost:7000/api/posts/${id}/postImage`,
         filebrowserUploadMethod: "form",
         extraPlugins: "uploadimage", // 이미지 업로드 플러그인 활성화
         filebrowserUploadMethod: "xhr", // iframe 대신 XHR을 사용
@@ -44,27 +44,6 @@ function PostForm() {
       editorRef.current = window.CKEDITOR.instances.editor;
     }
 
-    // 기존 게시글 로드 (수정 모드)
-    if (id) {
-      const fetchPost = async () => {
-        try {
-          const response = await fetch(`http://localhost:7000/api/posts/${id}`);
-          if (!response.ok) {
-            throw new Error("Failed to fetch post data");
-          }
-          const data = await response.json();
-          setForm({ title: data.title, category: data.category, content: data.content });
-          if (editorRef.current) {
-            editorRef.current.setData(data.content);
-          }
-        } catch (err) {
-          console.error("Error fetching post data:", err);
-        }
-      };
-
-      fetchPost();
-    }
-
     return () => {
       // CKEditor 인스턴스 해제
       if (editorRef.current) {
@@ -81,13 +60,8 @@ function PostForm() {
     }
 
     try {
-      const url = id
-        ? `http://localhost:7000/api/posts/${id}` // 수정 요청
-        : "http://localhost:7000/api/posts"; // 새 글 작성 요청
-      const method = id ? "PUT" : "POST";
-
-      const response = await fetch(url, {
-        method,
+      const response = await fetch("http://localhost:7000/api/posts", {
+        method: "POST", // 새 글 작성 요청
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -97,7 +71,7 @@ function PostForm() {
 
       const data = await response.json();
       if (response.ok) {
-        alert(id ? "Post updated successfully!" : "Post created successfully!");
+        alert("게시글 작성이 완료되었습니다.");
         navigate("/"); // 작성 또는 수정 후 홈으로 이동
       } else {
         alert(data.message || "An error occurred.");
@@ -109,7 +83,7 @@ function PostForm() {
 
   return (
     <div className="post-form-container">
-      <h1>{id ? "Edit Post" : "New Post"}</h1>
+      <h1>New Post</h1>
       <div>
         <label>Title</label>
         <input
@@ -142,7 +116,7 @@ function PostForm() {
         <textarea id="editor" defaultValue={form.content} />
       </div>
       <button onClick={handleSubmit} className="submit-button">
-        {id ? "Update Post" : "Create Post"}
+        Create Post
       </button>
     </div>
   );

@@ -1,8 +1,13 @@
 import Comment from "../models/Comment.js";
+import Post from "../models/Post.js";
 
 // 댓글 작성
 const addComment = async (content, postId, authorName) => {
   try {
+    const post = await Post.findById(postId);
+    if (!post) {
+      throw new Error("해당 게시글을 찾을 수 없습니다.");
+    }
     const comment = new Comment({
       content,
       post: postId,

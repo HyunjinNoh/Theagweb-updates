@@ -9,7 +9,7 @@ const router = express.Router();
  *   post:
  *     tags:
  *       - 댓글
- *     summary: 댓글 작성
+ *     summary: 특정 게시글에 댓글 작성
  *     description: 특정 게시글에 댓글을 작성합니다.
  *     parameters:
  *       - in: path
@@ -35,7 +35,7 @@ const router = express.Router();
  *       400:
  *         description: 잘못된 요청입니다.
  */
-router.post("/:postId/comments", commentController.createComment);
+router.post("/", commentController.createComment);
 
 /**
  * @swagger
@@ -58,7 +58,7 @@ router.post("/:postId/comments", commentController.createComment);
  *       404:
  *         description: 게시글을 찾을 수 없습니다.
  */
-router.get("/:postId/comments", commentController.getComments);
+router.get("/", commentController.getComments);
 
 //댓글 수정, 삭제 추가해야 함. 
 
