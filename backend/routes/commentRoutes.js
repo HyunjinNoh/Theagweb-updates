@@ -5,12 +5,19 @@ const router = express.Router();
 
 /**
  * @swagger
- * /comments:
+ * /posts/{postId}/comments:
  *   post:
  *     tags:
  *       - 댓글
  *     summary: 댓글 작성
  *     description: 특정 게시글에 댓글을 작성합니다.
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         required: true
+ *         description: 댓글을 작성할 게시글의 ID
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -18,21 +25,21 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               postId:
- *                 type: string
  *               content:
  *                 type: string
+ *               authorName:
+ *                 type: string
  *     responses:
- *       200:
+ *       201:
  *         description: 댓글이 작성되었습니다.
  *       400:
  *         description: 잘못된 요청입니다.
  */
-router.post("/", commentController.createComment);
+router.post("/:postId/comments", commentController.createComment);
 
 /**
  * @swagger
- * /comments/{postId}:
+ * /posts/{postId}/comments:
  *   get:
  *     tags:
  *       - 댓글
@@ -51,7 +58,7 @@ router.post("/", commentController.createComment);
  *       404:
  *         description: 게시글을 찾을 수 없습니다.
  */
-router.get("/:postId", commentController.getComments);
+router.get("/:postId/comments", commentController.getComments);
 
 //댓글 수정, 삭제 추가해야 함. 
 

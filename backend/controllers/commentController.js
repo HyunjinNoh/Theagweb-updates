@@ -2,11 +2,12 @@ import commentService from "../services/commentService.js";
 
 // 댓글 작성
 const createComment = async (req, res) => {
-  const { content, postId, authorName } = req.body;
+  const { content, authorName } = req.body;
+  const { postId } = req.params;
 
   // 요청 데이터 검증
-  if (!content || !postId || !authorName) {
-    return res.status(400).json({ message: "Content, postId, and authorName are required." });
+  if (!content || !authorName) {
+    return res.status(400).json({ message: "닉네임과 내용 입력은 필수입니다." });
   }
 
   try {
@@ -38,6 +39,8 @@ const getComments = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+// 댓글 수정, 삭제 필요
 
 const commentController = { createComment, getComments };
 export default commentController;
