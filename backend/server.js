@@ -2,8 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import cors from "cors";
+
 import authRoutes from "./routes/authRoutes.js";
-import postRoutes from "./services/postService.js";
+import postRoutes from "./routes/postRoutes.js";
+import fileUploadRoutes from "./routes/fileUploadRoutes.js";
 import commentRoutes from "./services/commentService.js";
 
 dotenv.config();
@@ -52,6 +54,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/file", fileUploadRoutes);
 app.use("/api/comments", commentRoutes);
 
 // Start Server
