@@ -1,7 +1,6 @@
 import express from "express";
 import { verifyReporter } from "../middleware/verifyReporter.js";
 import postController from "../controllers/postController.js";
-import fileUploadService from '../services/fileUploadService.js';
 
 const router = express.Router();
 
@@ -52,12 +51,17 @@ router.post("/", verifyReporter, postController.createPost);
 
 /**
  * @swagger
- * /posts/{postId}/files:
+ * /{postId}/postImage:
  *   post:
- *     tags:
- *       - 파일 업로드
- *     summary: 파일 업로드
- *     description: 이미지를 업로드합니다. (현재는 이미지 파일만)
+ *     summary: Upload post image
+ *     description: Allows the user to upload an image for a specific post.
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         required: true
+ *         description: The ID of the post to upload the image for.
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -70,11 +74,46 @@ router.post("/", verifyReporter, postController.createPost);
  *                 format: binary
  *     responses:
  *       200:
- *         description: 파일이 성공적으로 업로드되었습니다.
+ *         description: Image successfully uploaded
  *       400:
- *         description: 잘못된 요청입니다.
+ *         description: Invalid input
+ *       404:
+ *         description: Post not found
  */
-router.post('/:postId/files', fileUploadService.upload.single('file'), postController.uploadFileToPost);
+router.post('/:postId/postImages', postController.uploadPostImage);
+
+/**
+ * @swagger
+ * /{postId}/thumbnail:
+ *   post:
+ *     summary: Upload post thumbnail
+ *     description: Allows the user to upload a thumbnail for a specific post.
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         required: true
+ *         description: The ID of the post to upload the thumbnail for.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Thumbnail successfully uploaded
+ *       400:
+ *         description: Invalid input
+ *       404:
+ *         description: Post not found
+ */
+router.post('/:postId/thumbnail', postController.uploadThumbnail);
 
 //파일 삭제 추가해야 함. 
 
