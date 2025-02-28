@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../styles/PostList.css";
-import faviconImage from "../assets/favicon-image.png";
+import thumbnailImage from "../assets/favicon-image.png";
 
 function PostList({ category }) {
   const [posts, setPosts] = useState([]);
@@ -78,9 +78,11 @@ function PostList({ category }) {
           key={post._id}
           onClick={() => navigate(`/posts/${post._id}`)}
         >
-          <img src={faviconImage} className="favicon-image" />
-          <h2>{post.title}</h2>
-          <p>Category: {post.category}</p>
+          <img src={thumbnailImage} className="favicon-image" />
+          <div className="post-content">
+            <p className="postTitle"> {post.title} </p>
+            <p className="postCategory">{post.category}</p>
+          </div>
         </div>
       ))}
     </div>
