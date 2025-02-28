@@ -1,64 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./../styles/PostList.css";
 
 function PostList({ category }) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-
-  const keyword = searchParams.get("keyword");
-  const filterBy = searchParams.get("filterBy");
 
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
 
       try {
-        let endpoint = "/api/posts";
+        let endpoint = "http://localhost:7000/api/posts"; 
 
-        // 검색 조건
-        if (keyword && filterBy) {
-          if (filterBy === "title") {
-            endpoint = `/api/posts/search/title?keyword=${encodeURIComponent(keyword)}`;
-          } else if (filterBy === "author") {
-            endpoint = `/api/posts/search/author?keyword=${encodeURIComponent(keyword)}`;
-          }
-        }
-
-        // 카테고리 필터 추가
+        // 카테고리 필터만만
         if (category) {
-          endpoint += keyword && filterBy ? `&category=${encodeURIComponent(category)}` : `?category=${encodeURIComponent(category)}`;
+          endpoint += `?category=${encodeURIComponent(category)}`;
         }
 
+        // 서버에서 API를 호출하여 데이터를 가져옵니다.
         const response = await fetch(endpoint);
         if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error(`No results found for "${keyword || category}".`);
-          }
-          throw new Error(`Error: ${response.status}`);
+          const errorText = await response.text(); // HTML 응답을 텍스트로 받기
+          throw new Error(`Error: ${response.status} - ${errorText}`); // 오류 메시지와 함께 응답 내용 출력
         }
 
         const data = await response.json();
         setPosts(data);
-        setError(null); // Clear error
+        setError(null); 
       } catch (err) {
         console.error("Error fetching posts:", err);
-        setPosts([]); // Clear posts on error
-        setError(err.message); // Set error message
+        setPosts([]); 
+        setError(err.message); 
       } finally {
         setLoading(false);
       }
     };
 
-
     fetchPosts();
-  }, [category, keyword, filterBy]);
+  }, [category]); // 카테고리 변경 시마다 데이터를 새로 불러옵니다.
 
   if (loading) {
-    return <div className="post-list">Loading posts...</div>;
+    return <div className="post-list">로딩중입니다.</div>;
   }
 
   if (error) {
@@ -73,7 +58,7 @@ function PostList({ category }) {
     return (
       <div className="post-list">
         <h2 style={{ fontWeight: "bold", margin: "20px 0" }}>
-          No results found for "{keyword}".
+          해당 카테고리의 게시글이 없습니다.
         </h2>
       </div>
     );
@@ -81,9 +66,9 @@ function PostList({ category }) {
 
   return (
     <div className="post-list">
-      {keyword && (
+      {category && (
         <h2 style={{ fontWeight: "bold", margin: "20px 0" }}>
-          Search Results: "{keyword}"
+          카테고리: "{category}"
         </h2>
       )}
       {posts.map((post) => (
@@ -94,7 +79,7 @@ function PostList({ category }) {
         >
           <h2>{post.title}</h2>
           <p>Category: {post.category}</p>
-          <p>Author: {post.author?.name || "Unknown"}</p>
+          <p>Reporter: {post.author?.name || "Unknown"}</p>
           <p>Views: {post.views}</p>
         </div>
       ))}

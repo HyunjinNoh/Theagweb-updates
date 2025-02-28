@@ -12,7 +12,7 @@ const register = async (req, res) => {
   }
 };
 
-// 로그인 컨트롤러
+// 로그인 
 const login = async (req, res) => {
   const { email, password } = req.body;
 

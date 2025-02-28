@@ -20,7 +20,7 @@ const upload = multer({
     acl: 'public-read', // 업로드된 파일을 공개할지 여부
     key: (req, file, cb) => {
       const fileName = `${Date.now()}-${file.originalname}`;
-      cb(null, `upload/${fileName}`);
+      cb(null, `/${fileName}`);
     }
   })
 });

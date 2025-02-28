@@ -1,4 +1,5 @@
-import * as postService from "../services/postService.js";
+import postService from "../services/postService.js";
+import fileUploadController from "../controllers/fileUploadController.js";
 
 //게시글 목록 조회
 const getPosts = async (req, res) => {
@@ -6,7 +7,7 @@ const getPosts = async (req, res) => {
       const posts = await postService.getPosts(req.query.category);
       res.status(200).json(posts);
     } catch (error) {
-      res.status(500).json({ message: "Error fetching posts." });
+      res.status(500).json({ message: 'Server error occurred while fetching posts.' });
     }
 };
 
@@ -27,6 +28,11 @@ const createPost = async (req, res) => {
   }
 };
 
+// 특정 게시글에 파일 업로드
+const uploadFileToPost = async (req, res) => {
+  fileUploadController.uploadFile(req, res);  // fileUploadController에서 업로드 처리
+};
+
 //특정 게시글 조회 페이지
 const getPostById = async (req, res) => {
   try {
@@ -43,5 +49,7 @@ const getPostById = async (req, res) => {
   }
 };
 
-const postController = { getPosts, createPost, getPostById };
+
+
+const postController = { getPosts, createPost, getPostById, uploadFileToPost };
 export default postController;

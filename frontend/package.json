@@ -612,6 +612,7 @@
     "prompts": "^2.4.2",
     "prop-types": "^15.8.1",
     "proxy-addr": "^2.0.7",
+    "proxy": "http://localhost:7000",
     "proxy-from-env": "^1.1.0",
     "psl": "^1.13.0",
     "punycode": "^2.3.1",

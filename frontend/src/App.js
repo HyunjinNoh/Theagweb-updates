@@ -15,8 +15,6 @@ import "./App.css";
 
 function App() {
   const categories = [
-    //"The Youth Globe",
-    //"Notice Board",
     "On Campus",
     "Feature",
     "Issue",
@@ -31,8 +29,7 @@ function App() {
 
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
   const [userRole, setUserRole] = useState(""); // 사용자 역할 상태
-  const [searchData, setSearchData] = useState(null); // 검색 조건
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태
 
   const onLogin = (role) => {
     setIsLoggedIn(true);
@@ -57,39 +54,33 @@ function App() {
     }
   }, []);
 
-  const handleSearch = (searchData) => {
-    setSearchData(searchData); // 검색 조건 저장
-    setSelectedCategory(""); // 검색 조건이 설정되면 카테고리 초기화
-  };
-
   const handleCategorySelect = (category) => {
     setSelectedCategory(category); // 선택된 카테고리 설정
-    setSearchData(null); // 카테고리 선택 시 검색 조건 초기화
   };
 
   return (
     <Router>
       <div className="app-container">
-        <Navbar/>
-        <Header/>
+        <Navbar />
+        <Header />
         <div className="contents-wrapper">
           <Routes>
-            <Route path="/"
+            <Route
+              path="/"
               element={
                 <>
                   <CategoryMenu
                     categories={categories}
                     onCategorySelect={handleCategorySelect}
                   />
-                  <PostList
-                    category={selectedCategory}
-                    keyword={searchData?.keyword}
-                    filterBy={searchData?.filterBy}
-                  />
+                  <PostList category={selectedCategory} />
                 </>
               }
             />
-            <Route path="/reporters" element={<OnlyReporters isLoggedIn={isLoggedIn} userRole={userRole} onLogout={onLogout} />}/>
+            <Route
+              path="/reporters"
+              element={<OnlyReporters isLoggedIn={isLoggedIn} userRole={userRole} onLogout={onLogout} />}
+            />
             <Route path="/login" element={<Login onLogin={onLogin} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/post" element={<PostForm userRole={userRole} />} />
@@ -97,7 +88,7 @@ function App() {
           </Routes>
         </div>
         <footer className="footer">
-          <img src={require("./assets/footer-image.png")} className="footer-image"/>
+          <img src={require("./assets/footer-image.png")} className="footer-image" />
         </footer>
       </div>
     </Router>

@@ -1,17 +1,20 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
+import { swaggerUi, specs } from './config/swagger.js'; 
 import cors from "cors";
 
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-import fileUploadRoutes from "./routes/fileUploadRoutes.js";
-import commentRoutes from "./services/commentService.js";
+import commentRoutes from "./routes/commentRoutes.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 7000; // 기본 포트 추가
+
+// Swagger UI 연결
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(specs));
 
 /*
 const allowedOrigins = [
@@ -54,7 +57,6 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/file", fileUploadRoutes);
 app.use("/api/comments", commentRoutes);
 
 // Start Server

@@ -10,7 +10,7 @@ function CommentList({ postId }) {
     const fetchComments = async () => {
       try {
         console.log("Fetching comments for postId:", postId); // 디버깅 로그 추가
-        const response = await fetch(`/api/comments/${postId}`);
+        const response = await fetch(`http://localhost:7000/api/comments/${postId}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
@@ -33,7 +33,7 @@ function CommentList({ postId }) {
     }
 
     try {
-      const response = await fetch("/api/comments", {
+      const response = await fetch("http://localhost:7000/api/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,16 +60,16 @@ function CommentList({ postId }) {
       <div className="add-comment">
         <input
           type="text"
-          placeholder="Your name"
+          placeholder="Nickname"
           value={newComment.authorName}
           onChange={(e) => setNewComment({ ...newComment, authorName: e.target.value })}
         />
         <textarea
-          placeholder="Write your comment..."
+          placeholder="Please add your comment."
           value={newComment.content}
           onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
         />
-        <button onClick={handleAddComment}>Add Comment</button>
+        <button onClick={handleAddComment}>submit</button>
       </div>
       {error && <p className="error">{error}</p>}
       {comments.length > 0 ? (
@@ -82,7 +82,7 @@ function CommentList({ postId }) {
           </div>
         ))
       ) : (
-        <p>No comments yet.</p>
+        <p>댓글이 존재하지 않습니다.</p>
       )}
     </div>
   );

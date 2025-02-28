@@ -1,4 +1,5 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 const options = {
   definition: {
@@ -11,7 +12,7 @@ const options = {
     servers: [
       {
         url: 'http://localhost:7000/',
-        description: 'API 서버',
+        description: '로컬호스트 7000'
       },
     ],
     components: {
@@ -24,9 +25,9 @@ const options = {
       },
     },
   },
-  apis: ['./src/routes/*.js'],
+  apis: ['./routes/*.js'], // 경로는 실제 파일 위치에 맞게 수정
 };
 
 const specs = swaggerJsdoc(options);
 
-module.exports = specs; 
+export { swaggerUi, specs };
