@@ -81,7 +81,7 @@ function PostList({ category }) {
           <img src={thumbnailImage} className="favicon-image" />
           <div className="post-content">
             <p className="postTitle"> {post.title} </p>
-            <p className="postCategory">{post.category}</p>
+            <p className="postCategory">{post.category} | {new Date(post.createdAt).toLocaleDateString("ko-KR")}</p>
           </div>
         </div>
       ))}

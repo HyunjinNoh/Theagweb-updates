@@ -36,14 +36,14 @@ function PostDetail() {
   }
 
   return (
-    <div className="post-detail">
-      <h1>{post.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      <p>
-        <strong>Reporter:</strong> {post.author?.name || "Unknown"} <br />
-        <strong>Posted on:</strong> {new Date(post.createdAt).toLocaleString("ko-KR")}
-      </p>
-      <CommentList postId={postId} />
+    <div>
+      <div className="post-detail">
+        <h1>{post.title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: post.content }} />
+      </div>
+      <div className="comment-list">
+        <CommentList postId={postId} />
+      </div>
     </div>
   );
 }
