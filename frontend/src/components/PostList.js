@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../styles/PostList.css";
+import faviconImage from "../assets/favicon-image.png";
 
 function PostList({ category }) {
   const [posts, setPosts] = useState([]);
@@ -15,7 +16,7 @@ function PostList({ category }) {
       try {
         let endpoint = "http://localhost:7000/api/posts"; 
 
-        // 카테고리 필터만만
+        // 카테고리 필터만
         if (category) {
           endpoint += `?category=${encodeURIComponent(category)}`;
         }
@@ -68,7 +69,7 @@ function PostList({ category }) {
     <div className="post-list">
       {category && (
         <h2 style={{ fontWeight: "bold", margin: "20px 0" }}>
-          카테고리: "{category}"
+          Category: "{category}"
         </h2>
       )}
       {posts.map((post) => (
@@ -77,10 +78,9 @@ function PostList({ category }) {
           key={post._id}
           onClick={() => navigate(`/posts/${post._id}`)}
         >
+          <img src={faviconImage} className="favicon-image" />
           <h2>{post.title}</h2>
           <p>Category: {post.category}</p>
-          <p>Reporter: {post.author?.name || "Unknown"}</p>
-          <p>Views: {post.views}</p>
         </div>
       ))}
     </div>

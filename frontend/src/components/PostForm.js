@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "./../styles/PostForm.css";
 
 function PostForm() {
   const { id } = useParams(); // 게시글 ID 
@@ -83,12 +84,12 @@ function PostForm() {
 
   return (
     <div className="post-form-container">
-      <h1>New Post</h1>
+      <h1>Write Article</h1>
       <div>
         <label>Title</label>
         <input
           type="text"
-          placeholder="Enter title"
+          placeholder="enter title"
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
@@ -116,7 +117,7 @@ function PostForm() {
         <textarea id="editor" defaultValue={form.content} />
       </div>
       <button onClick={handleSubmit} className="submit-button">
-        Create Post
+        Submit
       </button>
     </div>
   );

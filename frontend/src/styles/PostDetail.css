@@ -1,0 +1,79 @@
+/* 전체 포스트 상세 페이지 스타일 */
+.post-detail {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 카드처럼 그림자 추가 */
+    border-radius: 8px; /* 테두리 둥글게 처리 */
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* 제목 스타일 */
+  .post-detail h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* 작성자 및 작성일자 */
+  .post-detail p {
+    color: black;
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  /* 본문 내용 스타일 */
+  .post-detail div {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  /* 댓글 영역 스타일 */
+  .comment-list {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .comment-list h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .comment-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-item p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .comment-item .comment-author {
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .comment-item .comment-date {
+    font-size: 14px;
+    color: #999;
+  }
+
+  

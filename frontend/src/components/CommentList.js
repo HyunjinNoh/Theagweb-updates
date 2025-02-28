@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./../styles/CommentList.css";
 
 function CommentList({ postId }) {
   const [comments, setComments] = useState([]);
@@ -56,7 +57,7 @@ function CommentList({ postId }) {
 
   return (
     <div className="comments-section">
-      <h3>Comments</h3>
+      <h3>Comments🕊️</h3>
       <div className="add-comment">
         <input
           type="text"
@@ -64,13 +65,13 @@ function CommentList({ postId }) {
           value={newComment.authorName}
           onChange={(e) => setNewComment({ ...newComment, authorName: e.target.value })}
         />
-        <textarea
+        <input 
           placeholder="Please add your comment."
           value={newComment.content}
           onChange={(e) => setNewComment({ ...newComment, content: e.target.value })}
         />
-        <button onClick={handleAddComment}>submit</button>
       </div>
+      <button className="comment-submit-btn" onClick={handleAddComment}>submit</button>
       {error && <p className="error">{error}</p>}
       {comments.length > 0 ? (
         comments.map((comment) => (
@@ -81,9 +82,7 @@ function CommentList({ postId }) {
             </p>
           </div>
         ))
-      ) : (
-        <p>There are no comments yet.</p>
-      )}
+      ) : (<p></p>)}
     </div>
   );
 }

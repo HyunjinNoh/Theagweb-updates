@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CommentList from "./CommentList";
+import '../styles/PostDetail.css';
 
 function PostDetail() {
   const { postId } = useParams(); // URL에서 postId 가져오기
@@ -37,11 +38,11 @@ function PostDetail() {
   return (
     <div className="post-detail">
       <h1>{post.title}</h1>
+      <div dangerouslySetInnerHTML={{ __html: post.content }} />
       <p>
         <strong>Reporter:</strong> {post.author?.name || "Unknown"} <br />
         <strong>Posted on:</strong> {new Date(post.createdAt).toLocaleString("ko-KR")}
       </p>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
       <CommentList postId={postId} />
     </div>
   );
