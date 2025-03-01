@@ -30,10 +30,10 @@
 }
 
 /* 썸네일 이미지 스타일 (왼쪽에 위치) */
-.favicon-image {
+.thumbnail-image {
   width: 300px; /* 고정 너비 */
   height: 150px; /* 부모 요소 높이에 맞춤 */
-  object-fit: contain; 
+  object-fit: cover; 
 }
 
 /* 텍스트 영역 스타일 (제목과 카테고리) */
@@ -70,12 +70,12 @@ div.post-content {
 }
 
 /* 작은 화면에서 한 줄에 하나의 카드 */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .post-list {
     grid-template-columns: 1fr; /* 한 줄에 하나의 카드 */
   }
 
-  .favicon-image {
+  .thumbnail-image {
     width: 20%; /* 이미지가 부모 크기에 맞게 조정 */
     height: auto; /* 이미지 비율을 유지 */
   }

@@ -84,7 +84,7 @@ function PostForm() {
 
   return (
     <div className="post-form-container">
-      <h1>Write Article</h1>
+      <h1>Post Article</h1>
       <div>
         <label>Title</label>
         <input
@@ -92,6 +92,15 @@ function PostForm() {
           placeholder="기사 제목(편집일 최종본)"
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
+        />
+      </div>
+      <div>
+        <label>Issue</label>
+        <input
+          type="text"
+          placeholder="몇 호인지 숫자만 입력 (예: 173)"
+          value={form.issue}
+          onChange={(e) => setForm({ ...form, issue: e.target.value })}
         />
       </div>
       <div>
