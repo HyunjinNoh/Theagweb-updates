@@ -12,7 +12,7 @@
     font-family: "Gowun Batang", serif;
     font-weight: 800;
     font-style: bold;
-    font-size: 18px;
+    font-size: 26px;
     margin-bottom: 20px;
   }
   
@@ -50,7 +50,6 @@
     background-color: #F0F0F0;
     border: none;
     margin-top: 15px;
-    margin-left: 93%;
     padding: 8px 24px;
     border-radius: 5px;
     cursor: pointer;

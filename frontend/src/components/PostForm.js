@@ -89,7 +89,7 @@ function PostForm() {
         <label>Title</label>
         <input
           type="text"
-          placeholder="enter title"
+          placeholder="기사 제목(편집일 최종본)"
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
@@ -111,6 +111,67 @@ function PostForm() {
           <option>Business</option>
           <option>Technology</option>
         </select>
+
+        <label>Page (예: 3면(1)이면 31 선택)</label>
+        <select
+          value={form.page}
+          onChange={(e) => setForm({ ...form, page: e.target.value })}
+        >
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>21</option>
+          <option>22</option>
+          <option>23</option>
+          <option>24</option>
+          <option>25</option>
+          <option>26</option>
+          <option>31</option>
+          <option>32</option>
+          <option>33</option>
+          <option>34</option>
+          <option>35</option>
+          <option>36</option>
+          <option>41</option>
+          <option>42</option>
+          <option>43</option>
+          <option>44</option>
+          <option>51</option>
+          <option>52</option>
+          <option>53</option>
+          <option>54</option>
+          <option>61</option>
+          <option>62</option>
+          <option>63</option>
+          <option>64</option>
+          <option>71</option>
+          <option>72</option>
+          <option>73</option>
+          <option>74</option>
+          <option>81</option>
+          <option>82</option>
+          <option>83</option>
+          <option>84</option>
+        </select>
+      </div>
+      <div>
+        <label>1 Sentence for preview</label>
+        <input
+          type="text"
+          placeholder="(예: Samsung Electronics’ stock price, which stood at 83,100 won on August 1, ...) "
+          value={form.previewSentence}
+          onChange={(e) => setForm({ ...form, previewSentence: e.target.value })}
+        />
+      </div>
+      <div>
+        <label>1 Thumbnail Image Link</label>
+        <input
+          type="text"
+          placeholder="에디터로 사진 업로드 후 링크 복사 붙여넣기"
+          value={form.thumbnailImage}
+          onChange={(e) => setForm({ ...form, thumbnailImage: e.target.value })}
+        />
       </div>
       <div>
         <label>Content</label>
