@@ -78,12 +78,12 @@ function App() {
               }
             />
             <Route
-              path="/reporters"
+              path="/auth"
               element={<OnlyReporters isLoggedIn={isLoggedIn} userRole={userRole} onLogout={onLogout} />}
             />
-            <Route path="/login" element={<Login onLogin={onLogin} />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/post" element={<PostForm userRole={userRole} />} />
+            <Route path="/auth/login" element={<Login onLogin={onLogin} />} />
+            <Route path="/auth/register" element={<Register />} />
+            <Route path="/posts" element={<PostForm/>} />
             <Route path="/posts/:postId" element={<PostDetail />} />
           </Routes>
         </div>

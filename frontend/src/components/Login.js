@@ -20,7 +20,7 @@ function Login({ onLogin }) {
         localStorage.setItem("role", data.role);
         onLogin(data.role);  // 로그인 후 역할 전달
         alert("로그인 되었습니다.");
-        navigate("../reporters");
+        navigate("/auth");
       } else {
         alert(data.message || "로그인이 되지 않았습니다.");
       }

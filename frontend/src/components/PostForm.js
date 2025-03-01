@@ -1,29 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./../styles/PostForm.css";
 
+//게시글 작성
 function PostForm() {
-  const { id } = useParams(); // 게시글 ID 
   const navigate = useNavigate();
-  const [form, setForm] = useState({ title: "", category: "", content: "" });
   const editorRef = useRef(null); // CKEditor 인스턴스 참조
-  const [userRole, setUserRole] = useState("");
+  const [form, setForm] = useState({
+    title: "", 
+    category: "", 
+    content: "", 
+    issue: "", 
+    page: "", 
+    previewSentence: "", 
+    thumbnailImage: "" ,
+  });
 
   useEffect(() => {
-    // 권한 확인
-    const role = localStorage.getItem("role");
-    if (!role || role !== "Reporter") {
-      alert("You do not have access to this page.");
-      navigate("/"); // 권한 없으면 홈으로 이동
-    } else {
-      setUserRole(role);
-    }
-
     // CKEditor 초기화
     if (document.getElementById("editor")) {
       window.CKEDITOR.replace("editor", {
         height: 300,
-        filebrowserUploadUrl: `http://localhost:7000/api/posts/${id}/postImage`,
+        filebrowserUploadUrl: "http://localhost:7000/api/posts/postImages",
         filebrowserUploadMethod: "form",
         extraPlugins: "uploadimage", // 이미지 업로드 플러그인 활성화
         filebrowserUploadMethod: "xhr", // iframe 대신 XHR을 사용
@@ -44,43 +42,67 @@ function PostForm() {
 
       editorRef.current = window.CKEDITOR.instances.editor;
     }
-
     return () => {
-      // CKEditor 인스턴스 해제
       if (editorRef.current) {
-        editorRef.current.destroy(true);
+        editorRef.current.destroy(true); // 컴포넌트 언마운트 시 CKEditor 인스턴스 제거
       }
     };
-  }, [id, navigate]);
+  }, []);
 
   const handleSubmit = async () => {
-    const content = editorRef.current?.getData(); // CKEditor 내용 가져오기
+    // Get the content from CKEditor
+    const content = editorRef.current?.getData(); 
+    
     if (!content) {
-      alert("Content is required.");
+      alert("내용은 필수 입력 항목입니다.");
       return;
     }
-
+  
+    // Check if issue and page are not empty and convert them to numbers
+    const issueNumber = parseInt(form.issue, 10);
+    const pageNumber = parseInt(form.page, 10);
+  
+    // Validate if issue and page are valid numbers
+    if (isNaN(issueNumber) || isNaN(pageNumber)) {
+      alert("Issue와 Page 항목은 숫자여야 합니다.");
+      return;
+    }
+  
+    if (!form.category || !form.title) {
+      alert("제목과 카테고리는 필수 입력 항목입니다.");
+      return;
+    }
+  
     try {
       const response = await fetch("http://localhost:7000/api/posts", {
-        method: "POST", // 새 글 작성 요청
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ ...form, content }),
+        body: JSON.stringify({
+          title: form.title,
+          category: form.category,
+          content,
+          issue: issueNumber,  // Send issue as number
+          page: pageNumber,    // Send page as number
+          previewSentence: form.previewSentence,
+          thumbnailImage: form.thumbnailImage,
+        }),
       });
-
+  
       const data = await response.json();
       if (response.ok) {
-        alert("게시글 작성이 완료되었습니다.");
-        navigate("/"); // 작성 또는 수정 후 홈으로 이동
+        alert("기사가 게시되었습니다.");
+        navigate("/"); // Redirect after successful post creation
       } else {
-        alert(data.message || "An error occurred.");
+        alert(data.message || "기사 등록 오류");
       }
     } catch (err) {
-      console.error("Error submitting post:", err);
+      console.error("기사 등록 오류:", err);
     }
   };
+  
 
   return (
     <div className="post-form-container">
@@ -89,7 +111,7 @@ function PostForm() {
         <label>Title</label>
         <input
           type="text"
-          placeholder="기사 제목(편집일 최종본)"
+          placeholder="기사 제목 (편집일 최종본)"
           value={form.title}
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
@@ -109,6 +131,7 @@ function PostForm() {
           value={form.category}
           onChange={(e) => setForm({ ...form, category: e.target.value })}
         >
+          <option>(예: 1면, 보도기사는 On Campus 선택)</option>
           <option>On Campus</option>
           <option>Feature</option>
           <option>Issue</option>
@@ -121,11 +144,12 @@ function PostForm() {
           <option>Technology</option>
         </select>
 
-        <label>Page (예: 3면(1)이면 31 선택)</label>
+        <label>Page </label>
         <select
           value={form.page}
           onChange={(e) => setForm({ ...form, page: e.target.value })}
         >
+          <option>(예: 3면(1)이면 31 선택)</option>
           <option>11</option>
           <option>12</option>
           <option>13</option>
@@ -165,7 +189,7 @@ function PostForm() {
         </select>
       </div>
       <div>
-        <label>1 Sentence for preview</label>
+        <label>20 words for preview</label>
         <input
           type="text"
           placeholder="(예: Samsung Electronics’ stock price, which stood at 83,100 won on August 1, ...) "
@@ -184,7 +208,11 @@ function PostForm() {
       </div>
       <div>
         <label>Content</label>
-        <textarea id="editor" defaultValue={form.content} />
+        <textarea
+          id="editor"
+          value={form.content}  // value로 form.content를 설정
+          onChange={(e) => setForm({ ...form, content: e.target.value })} // onChange로 상태 관리
+        />
       </div>
       <button onClick={handleSubmit} className="submit-button">
         Submit

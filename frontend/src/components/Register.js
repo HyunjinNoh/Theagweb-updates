@@ -17,7 +17,7 @@ function Register() {
 
       if (response.ok) {
         alert("회원가입이 완료되었습니다.");
-        navigate("../login");
+        navigate("/auth/login");
       } else {
         alert(data.message || "회원가입이 완료되지 않았습니다.");
       }

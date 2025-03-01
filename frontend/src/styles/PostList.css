@@ -66,7 +66,15 @@ div.post-content {
   font-weight: 400;
   font-size: 12px;
   color: #777; 
-  margin: 15px 15px 15px 15px;
+  margin: 15px 15px 0px 15px;
+}
+
+.postPreview {
+  font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: #777; 
+  margin: 0 15px 0px 15px;
 }
 
 /* 작은 화면에서 한 줄에 하나의 카드 */

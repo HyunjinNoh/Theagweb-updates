@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../styles/PostList.css";
-import thumbnailImage from "../assets/thumbnail-image.png";
 
 function PostList({ category }) {
   const [posts, setPosts] = useState([]);
@@ -78,10 +77,11 @@ function PostList({ category }) {
           key={post._id}
           onClick={() => navigate(`/posts/${post._id}`)}
         >
-          <img src={thumbnailImage} className="thumbnail-image" />
+          <img src={post.thumbnailImage} className="thumbnail-image" />
           <div className="post-content">
             <p className="postTitle"> {post.title} </p>
-            <p className="postCategory">{post.category} | {new Date(post.createdAt).toLocaleDateString("ko-KR")}</p>
+            <p className="postCategory">{post.category} | {post.issue}호 </p>
+            <p className="postPreview"> {post.previewSentence} </p>
           </div>
         </div>
       ))}
