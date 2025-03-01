@@ -6,19 +6,36 @@ const postSchema = new mongoose.Schema(
       type: String, 
       required: true 
     },
+    issue: { 
+      type: Number, 
+      required: true 
+    },
+    category: { 
+      type: String, 
+      required: true 
+    },
+    page: {
+      type: Number, 
+      required: true 
+    },
+    previewSentence: { 
+      type: String, 
+      required: true 
+    },
+    thumbnailImage: { 
+      type: String, 
+      required: true 
+    },
     content: { 
       type: String, 
       required: true 
     },
     author: { 
       type: mongoose.Schema.Types.ObjectId, 
+      required: true, 
+      default: "6743aa4d65d9e2ef0b0949b4",
       ref: "User", 
-      required: true 
     }, // User 모델과 연결
-    category: { 
-      type: String, 
-      required: true 
-    },
     attachments: [{ 
       type: String 
     }], // 파일 URL 배열
