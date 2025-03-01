@@ -31,7 +31,7 @@ function PostForm() {
     if (document.getElementById("editor")) {
       window.CKEDITOR.replace("editor", {
         height: 300,
-        filebrowserUploadUrl: "http://localhost:7000/api/posts/postImages",
+        filebrowserUploadUrl: "/api/posts/postImages",
         filebrowserUploadMethod: "form",
         extraPlugins: "uploadimage", // 이미지 업로드 플러그인 활성화
         filebrowserUploadMethod: "xhr", // iframe 대신 XHR을 사용
@@ -84,7 +84,7 @@ function PostForm() {
     }
   
     try {
-      const response = await fetch("http://localhost:7000/api/posts", {
+      const response = await fetch("/api/posts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

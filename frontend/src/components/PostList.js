@@ -13,7 +13,7 @@ function PostList({ category }) {
       setLoading(true);
 
       try {
-        let endpoint = "http://localhost:7000/api/posts"; 
+        let endpoint = "/api/posts"; 
 
         // 카테고리 필터만
         if (category) {

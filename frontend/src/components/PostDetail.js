@@ -12,7 +12,7 @@ function PostDetail() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:7000/api/posts/${postId}`);
+        const response = await fetch(`/api/posts/${postId}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
