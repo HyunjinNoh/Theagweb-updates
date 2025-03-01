@@ -41,6 +41,13 @@
     border-radius: 4px;
   }
   
+  p.explanation {
+    font-family: "Gowun Batang", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+  }
+
   .submit-button {
     color: black;
     font-family: "Gowun Batang", serif;

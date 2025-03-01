@@ -3,7 +3,7 @@ import commentService from "../services/commentService.js";
 // 댓글 작성
 const createComment = async (req, res) => {
   const { content, authorName } = req.body;
-  const { postId } = req.params;
+  const { postId } = req.params.id;
 
   // 요청 데이터 검증
   if (!content || !authorName) {

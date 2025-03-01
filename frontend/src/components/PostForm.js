@@ -6,6 +6,7 @@ import "./../styles/PostForm.css";
 function PostForm() {
   const navigate = useNavigate();
   const editorRef = useRef(null); // CKEditor 인스턴스 참조
+  const [userRole, setUserRole] = useState("");
   const [form, setForm] = useState({
     title: "", 
     category: "", 
@@ -17,6 +18,15 @@ function PostForm() {
   });
 
   useEffect(() => {
+
+    const role = localStorage.getItem("role");
+    if (!role || role !== "Reporter") {
+      alert("소속 기자만 글을 게시할 수 있습니다.");
+      navigate("/"); // 권한 없으면 홈으로 이동
+    } else {
+      setUserRole(role);
+    }
+
     // CKEditor 초기화
     if (document.getElementById("editor")) {
       window.CKEDITOR.replace("editor", {
@@ -205,6 +215,25 @@ function PostForm() {
           value={form.thumbnailImage}
           onChange={(e) => setForm({ ...form, thumbnailImage: e.target.value })}
         />
+      </div>
+      <div>
+        <p className="explanation">
+          ※사진 업로드 규칙※<br></br>
+          💚최소화질로 보도사진 압축: 
+            <a href="https://www.iloveimg.com/ko/compress-image" target="_blank">  iloveimg(다른 곳도 가능)</a><br></br>
+          💚사진명 - 숫자만! 예) 173호 3면(1) 보도사진1 ▶ "173_3(1)_1"<br></br>
+          💚원하는 위치에 갤러리 아이콘 클릭해서 "업로드 메뉴"▶"파일 선택", 서버로 전송" 클릭▶이미지 너비 400입력▶확인 클릭<br></br>
+          💚사진설명 - 글씨체: 기본, 글씨크기: 11 pt, 정렬: 왼쪽, 글씨스타일: 볼드<br></br><br></br>
+          ※텍스트 규칙※<br></br>
+          💚기사내용 - 글씨체: times new roman, 글씨크기: 14 pt, 정렬: 양쪽<br></br>
+          💚기자명 - 한 줄 띄고, 글씨체: 기본, 글씨크기: 14 pt, 정렬: 오른쪽<br></br>
+          💚그 외 각주, 이탤릭, 볼드 등 다듬기<br></br><br></br>
+          ※주의사항※<br></br>
+          ❤️제목은 content칸에 또 쓰지 않기!<br></br>
+          ❤️붙여넣기 할 때 ctrl+ shift + v or "텍스트로 붙여넣기" 버튼<br></br>
+          ❤️탭 대신 스페이스 4번 or "들여쓰기" 버튼<br></br>
+          ❤️에디터 공간 우측하단 스크롤로 늘리기 가능!<br></br>
+        </p>
       </div>
       <div>
         <label>Content</label>

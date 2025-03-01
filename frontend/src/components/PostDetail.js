@@ -40,6 +40,7 @@ function PostDetail() {
       <div className="post-detail">
         <h1>{post.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <p> Posted on {new Date(post.createdAt).toLocaleDateString("ko-KR")} </p>
       </div>
       <div className="comment-list">
         <CommentList postId={postId} />

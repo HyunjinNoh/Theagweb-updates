@@ -36,9 +36,6 @@ const postSchema = new mongoose.Schema(
       default: "6743aa4d65d9e2ef0b0949b4",
       ref: "User", 
     }, // User 모델과 연결
-    attachments: [{ 
-      type: String 
-    }], // 파일 URL 배열
     views: { 
       type: Number, 
       default: 0 
