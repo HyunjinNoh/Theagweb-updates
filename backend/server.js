@@ -57,7 +57,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/posts/:postId/comments", commentRoutes);
+app.use("/api/posts", commentRoutes); //여기 파라미터가 있으면 req.params가 인식 못 함
 
 // Start Server
 app.listen(PORT, () => {

@@ -32,7 +32,7 @@ function PostDetail() {
   }
 
   if (!post) {
-    return <div>로딩중입니다. </div>;
+    return <div className="postdetail-loading">Loading... </div>;
   }
 
   return (

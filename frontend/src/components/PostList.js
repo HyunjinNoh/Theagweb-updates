@@ -64,7 +64,7 @@ function PostList({ category }) {
   }, [category]); // 카테고리 변경 시마다 데이터를 새로 불러옵니다.
 
   if (loading) {
-    return <div className="post-list">로딩 중입니다.</div>;
+    return <div className="postlist-loading">Sorting...</div>;
   }
 
   if (error) {

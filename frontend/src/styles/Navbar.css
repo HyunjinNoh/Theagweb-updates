@@ -26,7 +26,7 @@
     list-style: none; 
     display: flex; 
     padding: 0;
-    margin: 10px 0 0 0; /* 상단에서 조금 간격 있게 */
+    margin: 10px 0 0 10px; /* 상단에서 조금 간격 있게 */
 }
 
 .navbar-links li {

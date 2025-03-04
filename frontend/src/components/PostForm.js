@@ -199,7 +199,7 @@ function PostForm() {
         </select>
       </div>
       <div>
-        <label>1~2 sentences for preview</label>
+        <label>1 sentences for preview</label>
         <input
           type="text"
           placeholder="(예: Samsung Electronics’ stock price, which stood at 83,100 won on August 1, plunged by nearly 40 percent to 49,900 won by November 14—the lowest price since May 2020.) "
@@ -211,18 +211,18 @@ function PostForm() {
         <label>1 Thumbnail Image Link</label>
         <input
           type="text"
-          placeholder="에디터로 사진 업로드 후 링크크 복사 붙여넣기 (예: https://theajouglobe.s3.ap-northeast-2.amazonaws...jpg)"
+          placeholder="에디터로 사진 업로드 후 링크 복사 붙여넣기 (예: https://theajouglobe.s3.ap-northeast-2.amazonaws...jpg)"
           value={form.thumbnailImage}
           onChange={(e) => setForm({ ...form, thumbnailImage: e.target.value })}
         />
       </div>
       <div>
-        <p className="explanation">
+      <p className="explanation">
           ※사진 업로드 규칙※<br></br>
           💚최소화질로 보도사진 압축: 
-            <a href="https://www.iloveimg.com/ko/compress-image" target="_blank">  iloveimg(다른 곳도 가능)</a><br></br>
+            <a href="https://www.iloveimg.com/ko/compress-image" target="_blank">  iloveimg  </a><br></br>
           💚사진명 - 숫자만! 예) 173호 3면(1) 보도사진1 ▶ "173_3(1)_1"<br></br>
-          💚원하는 위치에 갤러리 아이콘 클릭해서 "업로드 메뉴"▶"파일 선택", 서버로 전송" 클릭▶이미지 너비 400입력▶확인 클릭<br></br>
+          💚원하는 위치에 갤러리 아이콘 클릭해서 "업로드 메뉴"▶"파일 선택", 서버로 전송" 클릭▶이미지 너비 380입력▶확인 클릭<br></br>
           💚사진설명 - 글씨체: 기본, 글씨크기: 9 pt, 정렬: 왼쪽, 글씨스타일: 볼드<br></br><br></br>
           ※텍스트 규칙※<br></br>
           💚기사내용 - 글씨체: times new roman, 글씨크기: 기본, 정렬: 양쪽<br></br>
