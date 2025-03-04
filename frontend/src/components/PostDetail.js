@@ -40,7 +40,11 @@ function PostDetail() {
       <div className="post-detail">
         <h1>{post.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        <p> Posted on {new Date(post.createdAt).toLocaleDateString("ko-KR")} </p>
+        <p> Publication Date: 20{post.publicationDate.toString()[0]}{post.publicationDate.toString()[1]}.&nbsp;
+           {post.publicationDate.toString()[2]}{post.publicationDate.toString()[3]}.&nbsp;
+           {post.publicationDate.toString()[4]}{post.publicationDate.toString()[5]}.&nbsp;
+          | Posting Date: {new Date(post.createdAt).toLocaleDateString("ko-KR")} 
+        </p>
       </div>
       <div className="comment-list">
         <CommentList postId={postId} />

@@ -32,7 +32,7 @@ router.get("/", postController.getPosts);
 /*여기부터 service, controller, routes 분리 못함*/
 // 게시글 작성 라우트
 router.post("/", verifyReporter, async (req, res) => {
-    const { title, issue, page, content, category, previewSentence, thumbnailImage } = req.body;
+    const { title, issue, publicationDate, page, content, category, previewSentence, thumbnailImage } = req.body;
   
     // 요청 데이터 검증
     if (!content) {
@@ -44,6 +44,7 @@ router.post("/", verifyReporter, async (req, res) => {
       const post = new Post({
         title, 
         issue, 
+        publicationDate,
         page,
         category, 
         previewSentence, 

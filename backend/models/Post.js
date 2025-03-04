@@ -10,6 +10,10 @@ const postSchema = new mongoose.Schema(
       type: Number, 
       required: true 
     },
+    publicationDate : {
+      type: Number, 
+      required: true 
+    },
     category: { 
       type: String, 
       required: true 

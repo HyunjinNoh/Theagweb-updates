@@ -12,6 +12,7 @@ function PostForm() {
     category: "", 
     content: "", 
     issue: "", 
+    publicationDate: "",
     page: "", 
     previewSentence: "", 
     thumbnailImage: "" ,
@@ -71,10 +72,11 @@ function PostForm() {
     // Check if issue and page are not empty and convert them to numbers
     const issueNumber = parseInt(form.issue, 10);
     const pageNumber = parseInt(form.page, 10);
+    const publicationDateNumber = parseInt(form.publicationDate, 10);
   
     // Validate if issue and page are valid numbers
-    if (isNaN(issueNumber) || isNaN(pageNumber)) {
-      alert("Issue와 Page 항목은 숫자여야 합니다.");
+    if (isNaN(issueNumber) || isNaN(publicationDateNumber) || isNaN(pageNumber)) {
+      alert("Issue No., Publication Date, Page 항목은 숫자여야 합니다.");
       return;
     }
   
@@ -95,6 +97,7 @@ function PostForm() {
           category: form.category,
           content,
           issue: issueNumber,  // Send issue as number
+          publicationDate: publicationDateNumber, // Send publicationDate as number
           page: pageNumber,    // Send page as number
           previewSentence: form.previewSentence,
           thumbnailImage: form.thumbnailImage,
@@ -127,12 +130,21 @@ function PostForm() {
         />
       </div>
       <div>
-        <label>Issue</label>
+        <label>Issue No.</label>
         <input
           type="text"
           placeholder="몇 호인지 숫자만 입력 (예: 173)"
           value={form.issue}
           onChange={(e) => setForm({ ...form, issue: e.target.value })}
+        />
+      </div>
+      <div>
+        <label>Publication Date</label>
+        <input
+          type="text"
+          placeholder="발간일 숫자만 입력 (예: 241209)"
+          value={form.publicationDate}
+          onChange={(e) => setForm({ ...form, publicationDate: e.target.value })}
         />
       </div>
       <div>
@@ -154,7 +166,7 @@ function PostForm() {
           <option>Technology</option>
         </select>
 
-        <label>Page </label>
+        <label>Page</label>
         <select
           value={form.page}
           onChange={(e) => setForm({ ...form, page: e.target.value })}
@@ -199,7 +211,7 @@ function PostForm() {
         </select>
       </div>
       <div>
-        <label>1 sentences for preview</label>
+        <label>1 sentence for preview</label>
         <input
           type="text"
           placeholder="(예: Samsung Electronics’ stock price, which stood at 83,100 won on August 1, plunged by nearly 40 percent to 49,900 won by November 14—the lowest price since May 2020.) "
