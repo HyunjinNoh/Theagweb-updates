@@ -220,7 +220,7 @@ function PostForm() {
         />
       </div>
       <div>
-        <label>1 Thumbnail Image Link</label>
+        <label>1 thumbnail Image Link</label>
         <input
           type="text"
           placeholder="에디터로 사진 업로드 후 링크 복사 붙여넣기 (예: https://theajouglobe.s3.ap-northeast-2.amazonaws...jpg)"
@@ -241,9 +241,9 @@ function PostForm() {
           💚기자명 - 한 줄 띄고, 글씨체: 기본, 글씨크기: 기본, 정렬: 오른쪽<br></br>
           💚그 외 각주, 이탤릭, 볼드 등 다듬기<br></br><br></br>
           ※주의사항※<br></br>
+          ❤️썸네일은 자유 (기사에 없는 다른 사진으로 해도 무관), 레이아웃 사진은 지양 (FOR 전문성 FROM 전 편집장님)<br></br>
           ❤️썸네일은 업로드한 사진 "링크 복사"해서 링크 붙여넣으시거나, <br></br>
-            기사에 올리고 싶진 않은데 썸네일로만 넣고 싶으시다면 "업로드 메뉴"▶"파일 선택", 서버로 전송"까지만 하고 링크만 복붙하셔도 됩니다.<br></br>
-            그대신 압축은 그대로 + 사진명은 "173_3(1)_thumbnail" 이런 식으로 작성해주세요! <br></br>
+            기사에 올리고 싶진 않은데 썸네일로만 넣고 싶으시다면 압축▶사진명은 "173_3(1)_thumbnail" 양식▶"업로드 메뉴"▶"파일 선택"▶"서버로 전송"까지만(확인 버튼 X)▶링크 복붙<br></br>
           ❤️제목은 content칸에 또 쓰지 않기!<br></br>
           ❤️붙여넣기 할 때 ctrl+ shift + v or "텍스트로 붙여넣기" 버튼<br></br>
           ❤️탭 대신 스페이스 4번 or "들여쓰기" 버튼<br></br>

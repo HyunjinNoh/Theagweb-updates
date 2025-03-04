@@ -17,7 +17,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 카드 그림자 */
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-  height: 180px; 
+  height: 210px; 
   width: 100%;
   color: #333;
 }
@@ -32,18 +32,18 @@
 /* 썸네일 이미지 스타일 (왼쪽에 위치) */
 .thumbnail-image {
   width: 300px; /* 고정 너비 */
-  height: 180px; /* 부모 요소 높이에 맞춤 */
+  height: 210px; /* 부모 요소 높이에 맞춤 */
   object-fit: cover; 
 }
 
-/* 텍스트 영역 스타일 (제목과 카테고리) */
+/* 텍스트 영역 스타일 (제목과 카테고리, 프리뷰뷰) */
 div.post-content {
   display: flex;
   flex-direction: column; /* 제목과 카테고리는 세로로 나열 */
   justify-content: left; 
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px;
+  padding: 0 ;
   flex-grow: 1; 
 }
 
