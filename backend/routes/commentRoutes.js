@@ -35,7 +35,7 @@ const router = express.Router();
  *       400:
  *         description: 잘못된 요청입니다.
  */
-router.post("/", commentController.createComment);
+router.post("/:postId/comments", commentController.createComment);
 
 /**
  * @swagger
@@ -58,7 +58,7 @@ router.post("/", commentController.createComment);
  *       404:
  *         description: 게시글을 찾을 수 없습니다.
  */
-router.get("/", commentController.getComments);
+router.get("/:postId/comments", commentController.getComments);
 
 //댓글 수정, 삭제 추가해야 함. 
 

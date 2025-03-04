@@ -32,7 +32,7 @@ router.get("/", postController.getPosts);
 /*여기부터 service, controller, routes 분리 못함*/
 // 게시글 작성 라우트
 router.post("/", verifyReporter, async (req, res) => {
-    const { title, issue, page, content, category, previewSentence, thumbnailImage } = req.body;
+    const { title, issue, publicationDate, page, content, category, previewSentence, thumbnailImage } = req.body;
   
     // 요청 데이터 검증
     if (!content) {
@@ -44,6 +44,7 @@ router.post("/", verifyReporter, async (req, res) => {
       const post = new Post({
         title, 
         issue, 
+        publicationDate,
         page,
         category, 
         previewSentence, 
@@ -80,7 +81,7 @@ router.post("/", verifyReporter, async (req, res) => {
   
   // 이미지 업로드 엔드포인트
   router.post('/postImages', upload.single('upload'), async (req, res) => { 
-    res.setHeader("Access-Control-Allow-Origin", "http://theajouglobe.kr/"); // 프론트엔드 도메인 허용
+    res.setHeader("Access-Control-Allow-Origin", "http://theajouglobe.kr"); // 프론트엔드 도메인 허용
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS"); // 허용할 메서드
     res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // 허용할 헤더
     

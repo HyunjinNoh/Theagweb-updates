@@ -15,7 +15,7 @@ h3 {
 }
 
 .add-comment input {
-  width: 100%;
+  width: 50%;
   margin-bottom: 10px;
   padding: 8px;
 }
@@ -38,6 +38,7 @@ button.comment-submit-btn {
   padding: 8px 12px;
   border-radius: 5px;
   margin-top: 1px;
+  margin-bottom: 20px;
   cursor: pointer;
 }
   
@@ -49,9 +50,18 @@ button.comment-submit-btn:hover {
 .comment {
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
+  font-family: "Gowun Batang", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
+.comment-content {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0 5px 0 0;
+}
 .comment-timestamp {
   font-size: 0.85rem;
   color: #555;
+  margin: 0 5px 0 0;
 }

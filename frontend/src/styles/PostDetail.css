@@ -7,14 +7,15 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 카드처럼 그림자 추가 */
     border-radius: 8px; /* 테두리 둥글게 처리 */
   }
-  
+
+  /*댓글 박스 스타일*/
 .comment-list {
   max-width: 900px;
   margin: 30px auto;
   padding: 20px;
   background-color: #fff;
 }
-  /* 제목 스타일 */
+  /* 기사 제목 스타일 */
   .post-detail h1 {
     font-family: 'Times New Roman', Times, serif;
     font-size: 36px;
@@ -24,7 +25,7 @@
     text-align: center;
   }
   
-  /* 작성자 및 작성일자 */
+  /* 작성일자 */
   .post-detail p {
     color: black;
     font-family: "Gowun Batang", serif;
@@ -42,43 +43,6 @@
     line-height: 1.6;
     color: #333;
     margin-bottom: 30px;
-  }
-  
-  /* 댓글 영역 스타일 */
-  .comment-list {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
-  }
-  
-  .comment-list h2 {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  .comment-item {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .comment-item p {
-    margin: 5px 0;
-    color: #555;
-  }
-  
-  .comment-item .comment-author {
-    font-weight: bold;
-    color: #000;
-  }
-  
-  .comment-item .comment-date {
-    font-size: 14px;
-    color: #999;
   }
 
 /* 반응형 스타일 */
@@ -105,30 +69,7 @@
     max-width: 100%;
     margin-top: 20px;
   }
-
-  .comment-list h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  .comment-item {
-    padding: 8px;
-    margin-bottom: 8px;
-  }
-
-  .comment-item p {
-    font-size: 14px;
-  }
-
-  .comment-item .comment-author {
-    font-size: 16px;
-  }
-
-  .comment-item .comment-date {
-    font-size: 12px;
-  }
 }
-
 /* 모바일에서 더 작은 화면을 위한 스타일 */
 @media (max-width: 480px) {
   .post-detail {
@@ -143,25 +84,13 @@
   .post-detail div {
     font-size: 14px;
   }
+}
 
-  .comment-list h2 {
-    font-size: 16px;
-  }
-
-  .comment-item {
-    padding: 6px;
-    margin-bottom: 6px;
-  }
-
-  .comment-item p {
-    font-size: 12px;
-  }
-
-  .comment-item .comment-author {
-    font-size: 14px;
-  }
-
-  .comment-item .comment-date {
-    font-size: 10px;
-  }
+div.postdetail-loading {
+  font-family: "Gowun Batang", serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 18px;
+    margin-left: 20px;
+    color: #555;
 }

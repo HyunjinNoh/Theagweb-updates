@@ -1,9 +1,16 @@
 import commentService from "../services/commentService.js";
+import mongoose from "mongoose";
 
 // 댓글 작성
 const createComment = async (req, res) => {
   const { content, authorName } = req.body;
-  const { postId } = req.params.id;
+  const { postId } = req.params;
+
+  console.log('Received postId:', req.params);
+  // postId가 유효한 ObjectId인지 확인
+  if (!mongoose.isValidObjectId(postId)) {
+    return res.status(400).json({ message: "유효하지 않은 게시글 ID입니다." });
+  }
 
   // 요청 데이터 검증
   if (!content || !authorName) {
@@ -26,6 +33,11 @@ const createComment = async (req, res) => {
 // 댓글 조회
 const getComments = async (req, res) => {
   const { postId } = req.params;
+
+  // postId가 유효한 ObjectId인지 확인
+  if (!mongoose.isValidObjectId(postId)) {
+    return res.status(400).json({ message: "유효하지 않은 게시글 ID입니다." });
+  }
 
   try {
     const result = await commentService.getCommentsByPostId(postId);

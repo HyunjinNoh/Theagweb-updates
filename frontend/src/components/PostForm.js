@@ -12,6 +12,7 @@ function PostForm() {
     category: "", 
     content: "", 
     issue: "", 
+    publicationDate: "",
     page: "", 
     previewSentence: "", 
     thumbnailImage: "" ,
@@ -71,10 +72,11 @@ function PostForm() {
     // Check if issue and page are not empty and convert them to numbers
     const issueNumber = parseInt(form.issue, 10);
     const pageNumber = parseInt(form.page, 10);
+    const publicationDateNumber = parseInt(form.publicationDate, 10);
   
     // Validate if issue and page are valid numbers
-    if (isNaN(issueNumber) || isNaN(pageNumber)) {
-      alert("Issue와 Page 항목은 숫자여야 합니다.");
+    if (isNaN(issueNumber) || isNaN(publicationDateNumber) || isNaN(pageNumber)) {
+      alert("Issue No., Publication Date, Page 항목은 숫자여야 합니다.");
       return;
     }
   
@@ -95,6 +97,7 @@ function PostForm() {
           category: form.category,
           content,
           issue: issueNumber,  // Send issue as number
+          publicationDate: publicationDateNumber, // Send publicationDate as number
           page: pageNumber,    // Send page as number
           previewSentence: form.previewSentence,
           thumbnailImage: form.thumbnailImage,
@@ -127,12 +130,21 @@ function PostForm() {
         />
       </div>
       <div>
-        <label>Issue</label>
+        <label>Issue No.</label>
         <input
           type="text"
           placeholder="몇 호인지 숫자만 입력 (예: 173)"
           value={form.issue}
           onChange={(e) => setForm({ ...form, issue: e.target.value })}
+        />
+      </div>
+      <div>
+        <label>Publication Date</label>
+        <input
+          type="text"
+          placeholder="발간일 숫자만 입력 (예: 241209)"
+          value={form.publicationDate}
+          onChange={(e) => setForm({ ...form, publicationDate: e.target.value })}
         />
       </div>
       <div>
@@ -154,7 +166,7 @@ function PostForm() {
           <option>Technology</option>
         </select>
 
-        <label>Page </label>
+        <label>Page</label>
         <select
           value={form.page}
           onChange={(e) => setForm({ ...form, page: e.target.value })}
@@ -199,7 +211,7 @@ function PostForm() {
         </select>
       </div>
       <div>
-        <label>1~2 sentences for preview</label>
+        <label>1 sentence for preview</label>
         <input
           type="text"
           placeholder="(예: Samsung Electronics’ stock price, which stood at 83,100 won on August 1, plunged by nearly 40 percent to 49,900 won by November 14—the lowest price since May 2020.) "
@@ -208,30 +220,30 @@ function PostForm() {
         />
       </div>
       <div>
-        <label>1 Thumbnail Image Link</label>
+        <label>1 thumbnail Image Link</label>
         <input
           type="text"
-          placeholder="에디터로 사진 업로드 후 링크크 복사 붙여넣기 (예: https://theajouglobe.s3.ap-northeast-2.amazonaws...jpg)"
+          placeholder="에디터로 사진 업로드 후 링크 복사 붙여넣기 (예: https://theajouglobe.s3.ap-northeast-2.amazonaws...jpg)"
           value={form.thumbnailImage}
           onChange={(e) => setForm({ ...form, thumbnailImage: e.target.value })}
         />
       </div>
       <div>
-        <p className="explanation">
+      <p className="explanation">
           ※사진 업로드 규칙※<br></br>
           💚최소화질로 보도사진 압축: 
-            <a href="https://www.iloveimg.com/ko/compress-image" target="_blank">  iloveimg(다른 곳도 가능)</a><br></br>
+            <a href="https://www.iloveimg.com/ko/compress-image" target="_blank">  iloveimg  </a><br></br>
           💚사진명 - 숫자만! 예) 173호 3면(1) 보도사진1 ▶ "173_3(1)_1"<br></br>
-          💚원하는 위치에 갤러리 아이콘 클릭해서 "업로드 메뉴"▶"파일 선택", 서버로 전송" 클릭▶이미지 너비 400입력▶확인 클릭<br></br>
+          💚원하는 위치에 갤러리 아이콘 클릭해서 "업로드 메뉴"▶"파일 선택", 서버로 전송" 클릭▶이미지 너비 380입력▶확인 클릭<br></br>
           💚사진설명 - 글씨체: 기본, 글씨크기: 9 pt, 정렬: 왼쪽, 글씨스타일: 볼드<br></br><br></br>
           ※텍스트 규칙※<br></br>
           💚기사내용 - 글씨체: times new roman, 글씨크기: 기본, 정렬: 양쪽<br></br>
           💚기자명 - 한 줄 띄고, 글씨체: 기본, 글씨크기: 기본, 정렬: 오른쪽<br></br>
           💚그 외 각주, 이탤릭, 볼드 등 다듬기<br></br><br></br>
           ※주의사항※<br></br>
+          ❤️썸네일은 자유 (기사에 없는 다른 사진으로 해도 무관), 레이아웃 사진은 지양 (FOR 전문성 FROM 전 편집장님)<br></br>
           ❤️썸네일은 업로드한 사진 "링크 복사"해서 링크 붙여넣으시거나, <br></br>
-            기사에 올리고 싶진 않은데 썸네일로만 넣고 싶으시다면 "업로드 메뉴"▶"파일 선택", 서버로 전송"까지만 하고 링크만 복붙하셔도 됩니다.<br></br>
-            그대신 압축은 그대로 + 사진명은 "173_3(1)_thumbnail" 이런 식으로 작성해주세요! <br></br>
+            기사에 올리고 싶진 않은데 썸네일로만 넣고 싶으시다면 압축▶사진명은 "173_3(1)_thumbnail" 양식▶"업로드 메뉴"▶"파일 선택"▶"서버로 전송"까지만(확인 버튼 X)▶링크 복붙<br></br>
           ❤️제목은 content칸에 또 쓰지 않기!<br></br>
           ❤️붙여넣기 할 때 ctrl+ shift + v or "텍스트로 붙여넣기" 버튼<br></br>
           ❤️탭 대신 스페이스 4번 or "들여쓰기" 버튼<br></br>

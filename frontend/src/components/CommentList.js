@@ -43,7 +43,7 @@ function CommentList({ postId }) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to add comment");
+        throw new Error("Failed to add comment. Status: ${response.status}");
       }
 
       const data = await response.json();
@@ -76,7 +76,7 @@ function CommentList({ postId }) {
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div className="comment" key={comment._id}>
-            <p><strong>{comment.authorName}:</strong> {comment.content}</p>
+            <p className="comment-content"><strong>{comment.authorName}:</strong> {comment.content}</p>
             <p className="comment-timestamp">
               {new Date(comment.createdAt).toLocaleString("ko-KR")}
             </p>

@@ -15,7 +15,7 @@ export const verifyReporter = (req, res, next) => {
     req.user = decoded; // 토큰 정보 저장
     next();
   } catch (error) {
-    res.status(400).json({ message: "Invalid token." });
+    res.status(400).json({ message: "로그인 시간이 만료되었습니다." });
   }
 };
 

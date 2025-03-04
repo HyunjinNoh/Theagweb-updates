@@ -17,7 +17,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 카드 그림자 */
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-  height: 150px; 
+  height: 210px; 
   width: 100%;
   color: #333;
 }
@@ -32,18 +32,18 @@
 /* 썸네일 이미지 스타일 (왼쪽에 위치) */
 .thumbnail-image {
   width: 300px; /* 고정 너비 */
-  height: 150px; /* 부모 요소 높이에 맞춤 */
+  height: 210px; /* 부모 요소 높이에 맞춤 */
   object-fit: cover; 
 }
 
-/* 텍스트 영역 스타일 (제목과 카테고리) */
+/* 텍스트 영역 스타일 (제목과 카테고리, 프리뷰뷰) */
 div.post-content {
   display: flex;
   flex-direction: column; /* 제목과 카테고리는 세로로 나열 */
   justify-content: left; 
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px;
+  padding: 0 ;
   flex-grow: 1; 
 }
 
@@ -52,9 +52,9 @@ div.post-content {
   font-family: "Playfair Display", serif;
   font-weight: 600;
   font-size: 24px;
-  margin: 15px 15px 0px 15px;
+  margin: 15px 15px 15px 15px;
   line-height: 1.4;
-  overflow: auto;
+  overflow: visible;
   text-overflow: ellipsis;
   white-space: wrap; 
   transition: color 0.3s ease; 
@@ -66,15 +66,16 @@ div.post-content {
   font-weight: 400;
   font-size: 12px;
   color: #777; 
-  margin: 15px 15px 0px 15px;
+  margin: 0px 15px 0px 15px;
 }
 
+/*기사 프리뷰*/
 .postPreview {
   font-family: "Playfair Display", serif;
   font-weight: 600;
   font-size: 12px;
   color: #777; 
-  margin: 0 15px 0px 15px;
+  margin: 0 15px 15px 15px;
 }
 
 /* 작은 화면에서 한 줄에 하나의 카드 */
@@ -91,4 +92,14 @@ div.post-content {
   .post-card {
     height: auto; /* 카드의 높이를 콘텐츠에 맞게 자동으로 조정 */
   }
+}
+
+div.postlist-loading {
+  font-family: "Gowun Batang", serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-left: 20px;
+    color: #555;
 }
