@@ -11,7 +11,7 @@ function CommentList({ postId }) {
     const fetchComments = async () => {
       try {
         console.log("Fetching comments for postId:", postId); // 디버깅 로그 추가
-        const response = await fetch(`http://localhost:7000/api/posts/${postId}/comments`);
+        const response = await fetch(`/api/posts/${postId}/comments`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
@@ -34,7 +34,7 @@ function CommentList({ postId }) {
     }
 
     try {
-      const response = await fetch(`http://localhost:7000/api/posts/${postId}/comments`, {
+      const response = await fetch(`/api/posts/${postId}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
