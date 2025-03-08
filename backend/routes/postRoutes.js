@@ -106,7 +106,7 @@ router.get("/:postId", postController.getPostById);
 
 //특정 게시글 삭제 (작성자, 편집장만)
 router.delete("/:postId", verifyReporter, async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // 프론트엔드 도메인 허용
+  res.setHeader("Access-Control-Allow-Origin", "http://theajouglobe.kr"); // 프론트엔드 도메인 허용
   res.setHeader("Access-Control-Allow-Methods", "DELETE, OPTIONS"); // 허용할 메서드
   res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // 허용할 헤더
   try {
@@ -151,7 +151,7 @@ router.delete("/:postId", verifyReporter, async (req, res) => {
 
 // CKeditor 이미지 업로드 라우트
 router.post('/postImages', upload.single('upload'), async (req, res) => { 
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // 프론트엔드 도메인 허용
+  res.setHeader("Access-Control-Allow-Origin", "http://theajouglobe.kr"); // 프론트엔드 도메인 허용
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS"); // 허용할 메서드
   res.setHeader("Access-Control-Allow-Headers", "Content-Type"); // 허용할 헤더
   

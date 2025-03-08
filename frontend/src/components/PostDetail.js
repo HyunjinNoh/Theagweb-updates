@@ -13,7 +13,7 @@ function PostDetail() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:7000/api/posts/${postId}`);
+        const response = await fetch(`/api/posts/${postId}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
@@ -39,7 +39,7 @@ function PostDetail() {
           alert("삭제 권한이 없습니다. ");
           return;
         }
-        const response = await fetch(`http://localhost:7000/api/posts/${postId}`, {
+        const response = await fetch(`/api/posts/${postId}`, {
           method: 'DELETE',
           headers: {  
             Authorization: `Bearer ${token}`,
