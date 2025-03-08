@@ -34,7 +34,6 @@ app.use(
     credentials: true,
   })
 );
-
 /*
 // CORS 설정
 app.use(
@@ -62,5 +61,9 @@ app.use("/api/posts", commentRoutes); //여기 파라미터가 있으면 req.par
 
 // Start Server
 app.listen(PORT, '0.0.0.0', () => {
+<<<<<<< HEAD
   console.log(`Server is running`);
+=======
+  console.log(`Server running`);
+>>>>>>> 3783ca8d7ffeaee4f40f2e598c3cd77af0cc46bf
 });
