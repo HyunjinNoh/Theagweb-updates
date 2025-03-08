@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CommentList from "./CommentList";
 import '../styles/PostDetail.css';
 
 function PostDetail() {
   const { postId } = useParams(); // URL에서 postId 가져오기
+  const navigate = useNavigate(); // 페이지 리다이렉션
 
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
@@ -27,6 +28,37 @@ function PostDetail() {
     fetchPost();
   }, [postId]);
 
+  //게시글 삭제 버튼 작동 함수
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("기사를 정말 삭제하시겠습니까?");
+
+    if (confirmDelete) {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("삭제 권한이 없습니다. ");
+          return;
+        }
+        const response = await fetch(`http://localhost:7000/api/posts/${postId}`, {
+          method: 'DELETE',
+          headers: {  
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+        if (response.ok) {
+          alert("기사가 삭제되었습니다.");
+          navigate("/"); // 삭제 후 홈으로 리다이렉트
+        } else {
+          throw new Error("기사 삭제에 실패했습니다.");
+        }
+      } catch (err) {
+        console.error("기사 삭제 오류:", err);
+        alert("삭제 권한이 없습니다.");
+      }
+    }
+  };
+
   if (error) {
     return <div>게시글 조회 오류: {error}</div>;
   }
@@ -44,6 +76,7 @@ function PostDetail() {
            {post.publicationDate.toString()[2]}{post.publicationDate.toString()[3]}.&nbsp;
            {post.publicationDate.toString()[4]}{post.publicationDate.toString()[5]}.&nbsp;
           | Posting Date: {new Date(post.createdAt).toLocaleDateString("ko-KR")} 
+          <button className="post-delete-btn" onClick={handleDelete}>| Delete Post</button>
         </p>
       </div>
       <div className="comment-list">

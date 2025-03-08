@@ -29,7 +29,7 @@ function CommentList({ postId }) {
 
   const handleAddComment = async () => {
     if (!newComment.content || !newComment.authorName) {
-      alert("Please fill in both your nickname and comment.");
+      alert("Nickname과 Content를 모두 입력해야 합니다.");
       return;
     }
 

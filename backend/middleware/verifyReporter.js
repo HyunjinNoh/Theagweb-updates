@@ -9,7 +9,7 @@ export const verifyReporter = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (decoded.role !== "Reporter") {
+    if (decoded.role !== "Reporter" && decoded.role !== "Master") {
       return res.status(403).json({ message: "Access Denied. Not a Reporter." });
     }
     req.user = decoded; // 토큰 정보 저장
