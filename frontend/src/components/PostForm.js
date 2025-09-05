@@ -164,6 +164,8 @@ function PostForm() {
           <option>Economics</option>
           <option>Business</option>
           <option>Technology</option>
+          <option>Politics</option>
+          <option>AND MORE</option>
         </select>
 
         <label>Page</label>
