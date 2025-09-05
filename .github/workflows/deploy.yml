@@ -9,7 +9,7 @@ on:
 
 # 환경변수 설정 (전체 워크플로우에서 사용)
 env:
-  NODE_VERSION: "18"
+  NODE_VERSION: "20"
   FRONTEND_DIR: "frontend"
   BACKEND_DIR: "backend"
 
