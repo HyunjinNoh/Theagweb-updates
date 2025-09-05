@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "proxy": "http://localhost:7000",
   "main": "index.js",
   "dependencies": {
     "abab": "^2.0.6",
