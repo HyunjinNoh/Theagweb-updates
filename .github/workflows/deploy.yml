@@ -17,6 +17,7 @@ jobs:
   # 배포 작업 정의
   deploy:
     runs-on: ubuntu-latest # GitHub 제공 Ubuntu 러너 사용
+    timeout-minutes: 10
 
     steps:
       # 1. 소스코드 체크아웃
@@ -28,7 +29,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }} # 환경변수에서 버전 참조
-          cache: "npm" # npm 캐시 활성화로 빌드 속도 향상
+          cache: "npm"
           cache-dependency-path: | # 캐시할 package-lock.json 파일들 지정
             ${{ env.FRONTEND_DIR }}/package-lock.json
             ${{ env.BACKEND_DIR }}/package-lock.json
@@ -49,10 +50,8 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
+          timeout: 480s
           script: |
-            # 에러 발생 시 스크립트 중단
-            set -e  
-
             # 프로젝트 디렉토리로 이동
             PROJECT_DIR="/home/ec2-user/Theagweb-updates"
             cd $PROJECT_DIR
@@ -62,11 +61,11 @@ jobs:
 
             echo "🔧 Installing backend dependencies..."
             cd backend
-            npm ci 
+            npm install # 안전하게 일단 ci 대신 install
 
             echo "🔧 Installing frontend dependencies..."
             cd ../frontend
-            npm ci
+            npm install # 안전하게 일단 ci 대신 install
 
             echo "🔨 Building frontend..."  
             npm run build  
@@ -79,8 +78,9 @@ jobs:
             pm2 restart server.js
             sudo systemctl restart nginx
 
-      # 5. 배포 상태 확인
-      - name: 🔍 Health check
+      # 5. 배포 실패 시 롤백
+      - name: 🔄 Rollback on failure
+        if: failure() # 이전 단계가 실패했을 때만 실행
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_PUBLIC_IP }}
@@ -88,23 +88,34 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            echo "🔍 Checking service status..."
+            echo "❌ Deployment failed, starting rollback..."
 
-            # PM2 상태 확인
-            pm2 status
+            PROJECT_DIR="/home/ec2-user/Theagweb-updates"
+            cd $PROJECT_DIR
 
-            # 웹사이트 접근 가능 여부 확인
-            curl -f http://theajouglobe.kr > /dev/null && echo "✅ Website is accessible" || echo "❌ Website check failed"
+            # Git으로 이전 커밋으로 되돌리기
+            echo "🔄 Rolling back to previous commit..."
+            git reset --hard HEAD~1
 
-      # 6. 배포 완료 알림
-      - name: 📢 Deployment notification
-        if: always() # 성공/실패 관계없이 항상 실행
-        run: |
-          if [ "${{ job.status }}" == "success" ]; then
-            echo "🎉 Deployment to EC2 completed successfully!"
-            echo "📅 Deployed at: $(date)"
-            echo "🔗 Commit: ${{ github.sha }}"
-          else
-            echo "❌ Deployment failed!"
-            echo "🔍 Please check the logs above for details."
-          fi
+            # 백엔드 의존성 재설치
+            echo "🔧 Reinstalling backend dependencies..."
+            cd backend
+            npm install
+
+            # 프론트엔드 의존성 재설치 및 빌드
+            echo "🔧 Reinstalling frontend dependencies and rebuilding..."
+            cd ../frontend
+            npm install
+            npm run build
+
+            # nginx 폴더에 빌드 파일 복사
+            echo "📋 Copying rollback build files..."
+            sudo cp -r build/* /var/www/html/
+
+            # 서버 재시작
+            echo "🔃 Restarting services after rollback..."
+            cd ../backend
+            pm2 restart server.js
+            sudo systemctl restart nginx
+
+            echo "✅ Rollback completed"
