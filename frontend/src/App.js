@@ -25,6 +25,7 @@ function App() {
     "Economics",
     "Business",
     "Technology",
+    "Politics"
   ];
 
   const [selectedCategory, setSelectedCategory] = useState(""); // 선택된 카테고리
