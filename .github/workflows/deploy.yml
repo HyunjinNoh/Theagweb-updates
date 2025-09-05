@@ -1,0 +1,110 @@
+name: Deploy to EC2
+
+# 워크플로우가 실행될 조건 설정
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch: # 수동 배포 트리거 (GitHub UI에서 실행 가능)
+
+# 환경변수 설정 (전체 워크플로우에서 사용)
+env:
+  NODE_VERSION: "18"
+  FRONTEND_DIR: "frontend"
+  BACKEND_DIR: "backend"
+
+jobs:
+  # 배포 작업 정의
+  deploy:
+    runs-on: ubuntu-latest # GitHub 제공 Ubuntu 러너 사용
+
+    steps:
+      # 1. 소스코드 체크아웃
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4 # GitHub 저장소의 코드를 러너에 다운로드
+
+      # 2. Node.js 환경 설정
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }} # 환경변수에서 버전 참조
+          cache: "npm" # npm 캐시 활성화로 빌드 속도 향상
+          cache-dependency-path: | # 캐시할 package-lock.json 파일들 지정
+            ${{ env.FRONTEND_DIR }}/package-lock.json
+            ${{ env.BACKEND_DIR }}/package-lock.json
+
+      # 3. 의존성 검증 (빠른 체크)
+      - name: 🔍 Verify dependencies
+        run: |
+          cd ${{ env.BACKEND_DIR }}  
+          npm ci --dry-run  
+          cd ../${{ env.FRONTEND_DIR }}  
+          npm ci --dry-run
+
+      # 4. EC2에 배포 실행
+      - name: 🚀 Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            # 에러 발생 시 스크립트 중단
+            set -e  
+
+            # 프로젝트 디렉토리로 이동
+            PROJECT_DIR="/home/ec2-user/Theagweb-updates"
+            cd $PROJECT_DIR
+
+            echo "📥 Pulling latest code..."
+            git pull origin main
+
+            echo "🔧 Installing backend dependencies..."
+            cd backend
+            npm ci 
+
+            echo "🔧 Installing frontend dependencies..."
+            cd ../frontend
+            npm ci
+
+            echo "🔨 Building frontend..."  
+            npm run build  
+
+            echo "📋 Copying build files to nginx serving folder..."
+            sudo cp -r build/* /var/www/html/
+
+            echo "🔃 Restart Server..."
+            cd ../backend
+            pm2 restart server.js
+            sudo systemctl restart nginx
+
+      # 5. 배포 상태 확인
+      - name: 🔍 Health check
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            echo "🔍 Checking service status..."
+
+            # PM2 상태 확인
+            pm2 status
+
+            # 웹사이트 접근 가능 여부 확인
+            curl -f http://theajouglobe.kr > /dev/null && echo "✅ Website is accessible" || echo "❌ Website check failed"
+
+      # 6. 배포 완료 알림
+      - name: 📢 Deployment notification
+        if: always() # 성공/실패 관계없이 항상 실행
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "🎉 Deployment to EC2 completed successfully!"
+            echo "📅 Deployed at: $(date)"
+            echo "🔗 Commit: ${{ github.sha }}"
+          else
+            echo "❌ Deployment failed!"
+            echo "🔍 Please check the logs above for details."
+          fi
