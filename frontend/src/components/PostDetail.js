@@ -75,7 +75,6 @@ function PostDetail() {
         <p> Publication Date: 20{post.publicationDate.toString()[0]}{post.publicationDate.toString()[1]}.&nbsp;
            {post.publicationDate.toString()[2]}{post.publicationDate.toString()[3]}.&nbsp;
            {post.publicationDate.toString()[4]}{post.publicationDate.toString()[5]}.&nbsp;
-          | Posting Date: {new Date(post.createdAt).toLocaleDateString("ko-KR")} 
           <button className="post-delete-btn" onClick={handleDelete}>| Delete Post</button>
         </p>
       </div>
