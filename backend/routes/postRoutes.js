@@ -4,7 +4,7 @@ import postController from "../controllers/postController.js";
 
 /*파일 등록 관련 부분*/
 import Post from "../models/Post.js";
-import AWS from 'aws-sdk';
+import { S3Client, PutObjectCommand, DeleteObjectsCommand } from "@aws-sdk/client-s3";
 import multer from 'multer';
 import dotenv from 'dotenv';
 
@@ -15,9 +15,7 @@ const router = express.Router();
 
 /*파일 등록 관련 부분*/
 // AWS S3 설정
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_KEY, // AWS 액세스 키
-  secretAccessKey: process.env.AWS_PRIVATE_KEY, // AWS 비밀 키
+const s3Client = new S3Client({
   region: process.env.AWS_REGION, // S3 버킷이 위치한 리전
 });
 
@@ -128,18 +126,20 @@ router.delete("/:postId", verifyReporter, async (req, res) => {
     const s3ImageUrls = post.content.match(/https:\/\/.+?\.s3\..+?\.amazonaws\.com\/upload\/[^"'\s]+/g) || [];
 
     if (s3ImageUrls.length > 0) {
-      const deleteParams = {
+      const objects = s3ImageUrls.map(url => ({
+        Key: url.split(`.amazonaws.com/`)[1],
+      }));
+
+      const deleteCommand = new DeleteObjectsCommand({
         Bucket: process.env.AWS_BUCKET_NAME,
         Delete: {
-          Objects: s3ImageUrls.map(url => ({
-            Key: url.split(`.amazonaws.com/`)[1], // S3 키 추출
-          })),
+          Objects: objects,
           Quiet: false,
         },
-      };
+      });
 
-      await s3.deleteObjects(deleteParams).promise();
-      console.log("CKEditor 이미지 삭제 완료:", deleteParams.Delete.Objects);
+      await s3Client.send(deleteCommand);
+      console.log("CKEditor 이미지 삭제 완료:", objects);
     }
 
     await post.deleteOne();
@@ -166,19 +166,21 @@ router.post('/postImages', upload.single('upload'), async (req, res) => {
     const fileName = `${req.file.originalname}`;
     console.log("Uploading file:", fileName);
 
-    const params = {
-      Bucket: process.env.AWS_BUCKET_NAME, // S3 버킷 이름
-      Key: `upload/${fileName}`,          // 파일 경로 (upload 폴더 안에 저장)
+    const uploadCommand = new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: `upload/${fileName}`,
       Body: req.file.buffer,
       ContentType: req.file.mimetype,
-    };
+    });
 
-    const data = await s3.upload(params).promise();
-    console.log("File uploaded successfully:", data.Location);
+    await s3Client.send(uploadCommand);
+    const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/upload/${fileName}`;
+
+    console.log("File uploaded successfully:", fileUrl);
 
     res.status(200).json({
-      uploaded: true, // 업로드 성공 여부
-      url: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/upload/${fileName}`, // 업로드된 URL
+      uploaded: true,
+      url: fileUrl,
     });
   } catch (err) {
     console.error("Error during file upload:", err.message);
